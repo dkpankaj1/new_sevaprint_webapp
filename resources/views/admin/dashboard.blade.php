@@ -1,4 +1,5 @@
-<x-user-auth-layout>
+<x-admin-auth-layout>
+
     <!-- Start Content-->
     <div class="container-fluid">
 
@@ -656,4 +657,5 @@
         <!--end row-->
 
     </div> <!-- container -->
-</x-user-auth-layout>
+
+</x-admin-auth-layout>

@@ -1,6 +1,6 @@
-<x-user-guest-layout>
+<x-admin-guest-layout>
 
-    @section('title', 'Forget Password -')
+    @section('title', 'Login -')
 
 
     <div class="container">
@@ -21,12 +21,8 @@
                             </a>
                         </div>
 
-                        <form action="{{ route('password.email') }}" method="post">
+                        <form action="{{ route('admin.login') }}" method="post">
                             @csrf
-
-                            <div class="alert alert-info ">Enter your email address, and we'll send you a password reset
-                                link.</div>
-
                             <div class="form-group mb-3">
                                 <label class="form-label" for="email_address">Email address</label>
                                 <input class="form-control" name="email" type="email" value="{{ old('email') }}"
@@ -36,27 +32,33 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control" name="password" type="password"
+                                    placeholder="Enter your password">
+                                @error('password')
+                                    <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <div class="">
+                                    <input class="form-check-input" type="checkbox" id="checkbox-signin" checked
+                                        name="remember">
+                                    <label class="form-check-label ms-2" for="checkbox-signin">Remember me</label>
+                                </div>
+                            </div>
 
                             <div class="form-group mb-0 text-center">
-                                <button class="btn btn-primary w-100" type="submit"> Send Reset Link </button>
+                                <button class="btn btn-primary w-100" type="submit"> Log In </button>
                             </div>
 
                         </form>
                     </div> <!-- end card-body -->
                 </div>
                 <!-- end card -->
-
-                <div class="row mt-3">
-                    <div class="col-12 text-center">
-                        <p class="text-white-50">Remembered your password?
-                            <a href="{{ route('login') }}" class="text-white font-weight-medium ms-1">Login here</a>
-                        </p>
-                    </div> <!-- end col -->
-                </div>
-                <!-- end row -->
-
             </div> <!-- end col -->
         </div>
         <!-- end row -->
     </div>
-</x-user-guest-layout>
+</x-admin-guest-layout>

@@ -22,11 +22,8 @@ class LoginController extends Controller
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ]);
-
         $key = $this->generateThrottleKey($request->input('email'), $request->ip());
-
         $this->ensureIsNotRateLimited($request,$key);
-
         if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $this->hitRateLimiter($key);
 
@@ -34,11 +31,8 @@ class LoginController extends Controller
                 'email' => trans('auth.failed'),
             ]);
         }
-
         $this->clearRateLimiter($key);
-
         $request->session()->regenerate();
-
         return redirect()->intended(route('dashboard', absolute: false));
     }
 }

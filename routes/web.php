@@ -31,3 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('logout', [UserLogoutController::class, 'destroy'])->name('logout');
 });
+
+
+
+require __DIR__.'/admin.php';

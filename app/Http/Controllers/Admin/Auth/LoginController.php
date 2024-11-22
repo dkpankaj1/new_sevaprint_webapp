@@ -3,25 +3,36 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\RateLimiterTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    use RateLimiterTrait;
+    public function create()
     {
-        return view('admin.login');
+        return view('admin.auth.login');
     }
 
-    public function login(Request $request)
+    public function store(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->intended('/admin/dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'Invalid credentials.',
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
         ]);
+
+        $key = $this->generateThrottleKey($request->input('email'), $request->ip());
+        $this->ensureIsNotRateLimited($request, $key);
+        if (!Auth::guard('admin')->attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            $this->hitRateLimiter($key);
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+        $this->clearRateLimiter($key);
+        $request->session()->regenerate();
+        return redirect()->intended(route('admin.dashboard', absolute: false));
     }
 }

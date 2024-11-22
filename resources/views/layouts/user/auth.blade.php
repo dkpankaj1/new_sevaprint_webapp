@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Starter | Admin Dashboard</title>
+    <title>Starter | User Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Myra Studio" name="author" />
@@ -32,15 +32,17 @@
             <!-- Brand Logo -->
             <div class="logo-box">
                 <!-- Brand Logo Light -->
-                <a href="index.html" class="logo-light">
-                    <img src="{{asset('assets/images/logo-light.png')}}" alt="logo" class="logo-lg" height="28">
-                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="small logo" class="logo-sm" height="28">
+                <a href="#" class="logo-light">
+                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="logo" class="logo-lg"
+                        height="28">
+                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="small logo" class="logo-sm" height="28">
                 </a>
 
                 <!-- Brand Logo Dark -->
-                <a href="index.html" class="logo-dark">
-                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="dark logo" class="logo-lg" height="28">
-                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="small logo" class="logo-sm" height="28">
+                <a href="#" class="logo-dark">
+                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="dark logo" class="logo-lg"
+                        height="28">
+                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="small logo" class="logo-sm" height="28">
                 </a>
             </div>
 
@@ -61,29 +63,7 @@
 
             <div class="px-3">
 
-                <!-- Start Content-->
-                <div class="container-fluid">
-
-                    <!-- start page title -->
-                    <div class="py-3 py-lg-4">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h4 class="page-title mb-0">Starter</h4>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="d-none d-lg-block">
-                                    <ol class="breadcrumb m-0 float-end">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Extra Pages</a>
-                                        </li>
-                                        <li class="breadcrumb-item active">Starter</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
-
-                </div> <!-- container -->
+                {{$slot}}
 
             </div> <!-- content -->
 
@@ -100,8 +80,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end">
-                                <p class="mb-0">Design & Develop by <a href="https://myrathemes.com/"
-                                        target="_blank">MyraStudio</a> </p>
+                                <p class="mb-0">Design & Develop by <a href="#" target="_blank">Cortex It
+                                        Solution</a> </p>
                             </div>
                         </div>
                     </div>
