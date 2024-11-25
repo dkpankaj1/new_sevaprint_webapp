@@ -9,7 +9,7 @@
                     <div class="text-center">
                         <div class="mb-4">
                             <a href="index.html" class="auth-logo">
-                                <img src="{{asset('dashboard/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
+                                <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
                             </a>
                         </div>
 

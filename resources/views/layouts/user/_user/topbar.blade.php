@@ -13,21 +13,21 @@
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
-                        <img src="{{ asset('dashboard/images/flags/us.jpg') }}" alt="user-image"
+                        <img src="{{ asset('backend/images/flags/us.jpg') }}" alt="user-image"
                             class="me-0 me-sm-1" height="18">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
 
                         <!-- item-->
                         <a href="{{ route('lang.switch', 'en') }}" class="dropdown-item">
-                            <img src="{{ asset('dashboard/images/flags/us.jpg') }}" alt="user-image" class="me-1"
+                            <img src="{{ asset('backend/images/flags/us.jpg') }}" alt="user-image" class="me-1"
                                 height="12">
                             <span class="align-middle">English</span>
                         </a>
 
                         <!-- item-->
                         <a href="{{ route('lang.switch', 'hi') }}" class="dropdown-item">
-                            <img src="{{ asset('dashboard/images/flags/in.webp') }}" alt="user-image" class="me-1"
+                            <img src="{{ asset('backend/images/flags/in.webp') }}" alt="user-image" class="me-1"
                                 height="12">
                             <span class="align-middle">Hindi</span>
                         </a>

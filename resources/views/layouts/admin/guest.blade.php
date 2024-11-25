@@ -9,13 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('dashboard/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
     <!-- App css -->
-    <link href="{{ asset('dashboard/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
     <!-- Icons -->
-    <link href="{{ asset('dashboard/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('dashboard/libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -42,17 +42,17 @@
     <!-- END wrapper -->
 
     <!-- Vendor -->
-    <script src="{{ asset('dashboard/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('backend/libs/toastr/toastr.min.js') }}"></script>
 
     <!-- App js-->
-    <script src="{{ asset('dashboard/assets/js/app.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/app.js') }}"></script>
     <x-toastr />
 
 </body>
