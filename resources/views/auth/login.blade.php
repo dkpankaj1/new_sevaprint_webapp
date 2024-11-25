@@ -1,76 +1,73 @@
 <x-user-guest-layout>
-    
-    @section('title','Login -')
 
+    @section('title', 'Login')
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-4 col-md-5">
-                <div class="card">
-                    <div class="card-body p-4">
-
-                        <div class="text-center w-75 mx-auto auth-logo mb-4">
-                            <a href="{{ route('home') }}" class="logo-dark">
-                                <span><img src="{{ asset('assets/images/logo-dark.png') }}" alt=""
-                                        height="22"></span>
-                            </a>
-
-                            <a href="{{ route('home') }}" class="logo-light">
-                                <span><img src="{{ asset('assets/images/logo-light.png') }}" alt=""
-                                        height="22"></span>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="mb-0 border-0">
+                <div class="p-0">
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <a href="index.html" class="auth-logo">
+                                <img src="{{asset('dashboard/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
                             </a>
                         </div>
 
-                        <form action="{{ route('login') }}" method="post">
-                            @csrf
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="email_address">Email address</label>
-                                <input class="form-control" name="email" type="email" value="{{old('email')}}"
-                                    placeholder="Enter your email">
-                                @error('email')
-                                    <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="auth-title-section mb-3">
+                            <h3 class="text-dark fs-20 fw-medium mb-2">Welcome back</h3>
+                            <p class="text-dark text-capitalize fs-14 mb-0">Please enter your details.</p>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="password">Password</label>
-                                <input class="form-control" name="password" type="password"
-                                    placeholder="Enter your password">
-                                @error('password')
-                                    <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
-                                @enderror
-                            </div>
+                <div class="pt-0">
 
-                            <div class="form-group mb-3">
-                                <div class="">
-                                    <input class="form-check-input" type="checkbox" id="checkbox-signin" checked
-                                        name="remember">
+                    <form action="{{ route('login') }}" method="post">
+                        @csrf
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="email_address">Email address</label>
+                            <input class="form-control" name="email" type="email" value="{{ old('email') }}"
+                                placeholder="Enter your email">
+                            @error('email')
+                                <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" name="password" type="password"
+                                placeholder="Enter your password">
+                            @error('password')
+                                <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group d-flex mb-3">
+                            <div class="col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
                                     <label class="form-check-label ms-2" for="checkbox-signin">Remember me</label>
                                 </div>
                             </div>
-
-                            <div class="form-group mb-0 text-center">
-                                <button class="btn btn-primary w-100" type="submit"> Log In </button>
+                            <div class="col-sm-6 text-end">
+                                <a class='text-muted fs-14' href='{{ route('password.request') }}'>Forgot
+                                    password?</a>
                             </div>
+                        </div>
 
-                        </form>
-                    </div> <!-- end card-body -->
+                        <div class="form-group mb-0 text-center">
+                            <button class="btn btn-primary w-100" type="submit"> Log In </button>
+                        </div>
+
+                    </form>
+
+
+                    <div class="text-center text-muted mt-3">
+                        <p class="mb-0">Don't have an account ?<a class='text-primary ms-2 fw-medium'
+                                href='{{ route('register') }}'>Sign Up</a></p>
+                    </div>
                 </div>
-                <!-- end card -->
-
-                <div class="row mt-3">
-                    <div class="col-12 text-center">
-                        <p class="text-white-50"> <a href="{{ route('password.request') }}"
-                                class="text-white-50 ms-1">Forgot your
-                                password?</a></p>
-                        <p class="text-white-50">Don't have an account? <a href="{{ route('register') }}"
-                                class="text-white font-weight-medium ms-1">Sign Up</a></p>
-                    </div> <!-- end col -->
-                </div>
-                <!-- end row -->
-
-            </div> <!-- end col -->
+            </div>
         </div>
-        <!-- end row -->
     </div>
 </x-user-guest-layout>

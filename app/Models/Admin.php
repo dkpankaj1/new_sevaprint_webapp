@@ -9,10 +9,15 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+    public function getAvatarAttribute($value)
+    {
+        return $value ? asset($value) : asset('avatar/user.jpg');
+    }
 }

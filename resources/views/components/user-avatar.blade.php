@@ -1,0 +1,1 @@
+<img src="{{$src}}" class="img-fluid rounded" alt="product image" width="40px">

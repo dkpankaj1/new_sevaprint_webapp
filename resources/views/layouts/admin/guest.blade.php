@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
+<html lang="en">
 
 <head>
+
     <meta charset="utf-8" />
-    <title>@yield('title', '') Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Myra Studio" name="author" />
+    <title>@yield('title', '') | Admin Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
-
+    <link rel="shortcut icon" href="{{ asset('dashboard/images/favicon.ico') }}">
     <!-- App css -->
-    <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/toaster/toastr.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dashboard/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+    <!-- Icons -->
+    <link href="{{ asset('dashboard/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <script src="{{ asset('assets/js/config.js') }}"></script>
+    <link href="{{ asset('dashboard/libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+
 </head>
 
-<body class="bg-primary d-flex justify-content-center align-items-center min-vh-100 p-5">
+<body class="bg-color">
 
-    {{ $slot }}
+    <!-- Begin page -->
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-12">
+                <div class="p-0">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6 col-xl-6 col-lg-6">
+                            {{ $slot }}
+                        </div>
+                        <div
+                            class="col-md-6 col-xl-6 col-lg-6 p-0 vh-100 d-flex justify-content-center account-page-bg">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- App js -->
-    <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-    <script src="{{ asset('vendor/toaster/toastr.min.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+        </div>
+    </div>
+    <!-- END wrapper -->
 
-    <x-toaster />
+    <!-- Vendor -->
+    <script src="{{ asset('dashboard/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/toastr/toastr.min.js') }}"></script>
 
+    <!-- App js-->
+    <script src="{{ asset('dashboard/assets/js/app.js') }}"></script>
+    <x-toastr />
 
 </body>
 

@@ -22,6 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'country',
+        'postal_code',
+        'avatar',
+        'wallet',
+        'is_active',
     ];
 
     /**
@@ -49,5 +58,9 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token));
+    }
+    public function getAvatarAttribute($value)
+    {
+        return $value ? asset($value) : "https://via.placeholder.com/100";
     }
 }
