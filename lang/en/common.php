@@ -14,7 +14,13 @@ return [
     ],
 
     'menu' => [
-        'dashboard' => "Dashboard"
+        'dashboard' => "Dashboard",
+                
+        'account' => 'Account',
+        'myAccount' => 'My Account',
+        'profile update' => 'Profile Update',
+        'change password' => 'Change Password',
+        'logout' => 'Logout',
     ],
 
     'topbar' => [

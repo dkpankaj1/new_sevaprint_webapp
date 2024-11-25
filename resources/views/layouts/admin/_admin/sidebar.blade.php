@@ -30,4 +30,25 @@
         </div>
     </li>
 
+    <li>
+        <a href="#sidebarAccount" data-bs-toggle="collapse">
+            <i data-feather="user"></i>
+            <span> Account </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarAccount">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.account.profile.index') }}">My Account</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.account.profile.edit') }}">Profile Update</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.account.password.change') }}">ChangePassword</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
 </ul>

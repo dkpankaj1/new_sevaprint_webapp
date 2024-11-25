@@ -15,6 +15,12 @@ return [
 
     'menu' => [
         'dashboard' => "डैशबोर्ड",
+        
+        'account' => 'खाता',
+        'myAccount' => 'मेरा खाता',
+        'profile update' => 'प्रोफ़ाइल अपडेट',
+        'change password' => 'पासवर्ड बदलें',
+        'logout' => 'लॉग आउट',
     ],
 
     'topbar' => [
