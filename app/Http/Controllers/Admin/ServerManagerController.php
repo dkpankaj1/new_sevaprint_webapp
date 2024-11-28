@@ -89,23 +89,4 @@ class ServerManagerController extends Controller
         }
     }
 
-    public function updateProject()
-    {
-        // Check if the application is not in production
-        if (app()->environment() !== 'production') {
-            // Call the custom Artisan command
-            Artisan::call('project:update');
-
-            // Redirect with a success message
-            $notification = ['message' => "Project update is in progress.", 'type' => "success"];
-            return redirect()->back()->with($notification);
-        } else {
-            // If in production, show an error or alternative message
-            $notification = ['message' => 'Cannot update project in the production environment.', 'type' => "error"];
-            return redirect()->back()->with($notification);
-        }
-    }
-
-
-
 }

@@ -139,24 +139,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 shadow d-flex flex-column justify-content-between">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Update Project</h5>
-                        <p class="card-text">Pull the latest changes from the GitHub repository and update the project.
-                        </p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <form action="{{ route('admin.server.update') }}" method="POST">
-                            @csrf
-                            <button type="submit" id="update-btn" class="btn btn-warning">Update Project</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
 
     </div>
