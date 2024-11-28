@@ -58,6 +58,10 @@ class ServerManager
     // Get network statistics
     public function getNetworkStats()
     {
-        return shell_exec('netstat -s');
+        if (stristr(PHP_OS, 'win')) {
+            return shell_exec('netstat -e');
+        }
+
+        return shell_exec('netstat -i');
     }
 }

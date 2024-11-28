@@ -32,6 +32,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('clear-cache', [ServerManagerController::class, 'clearCache'])->name('clear-cache');
             Route::post('storage-link', [ServerManagerController::class, 'storageLink'])->name('storage-link');
             Route::post('optimize', [ServerManagerController::class, 'optimize'])->name('optimize');
+            Route::post('migrate-fresh', [ServerManagerController::class, 'migrateFresh'])->name('migrate-fresh');
+            Route::post('update', [ServerManagerController::class, 'updateProject'])->name('update');
         });
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {

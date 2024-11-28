@@ -8,7 +8,7 @@
     <div class="container-xxl mt-5">
 
         <div class="row">
-            <div class="col-md-6 col-xl-4">
+            <div class="col-md-6 col-xl-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -21,7 +21,7 @@
                 </div> <!-- end card -->
             </div> <!-- end col -->
 
-            <div class="col-md-6 col-xl-4">
+            <div class="col-md-6 col-xl-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -48,7 +48,7 @@
                 </div> <!-- end card -->
             </div> <!-- end col -->
 
-            <div class="col-md-6 col-xl-6">
+            <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -61,7 +61,7 @@
                 </div> <!-- end card -->
             </div> <!-- end col -->
 
-            <div class="col-md-6 col-xl-6">
+            <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -84,14 +84,14 @@
                         <p class="card-text">Clear all application cache to refresh system performance.</p>
                     </div>
                     <div class="card-footer text-center">
-                        <form action="{{route('admin.server.clear-cache')}}" method="POST">
+                        <form action="{{ route('admin.server.clear-cache') }}" method="POST">
                             @csrf
                             <button type="submit" id="clear-cache-btn" class="btn btn-danger">Clear Cache</button>
                         </form>
                     </div>
                 </div>
             </div>
-    
+
             <!-- Storage Link Card -->
             <div class="col-md-4">
                 <div class="card h-100 shadow d-flex flex-column justify-content-between">
@@ -100,14 +100,15 @@
                         <p class="card-text">Link the storage directory to public for file access.</p>
                     </div>
                     <div class="card-footer text-center">
-                        <form action="{{route('admin.server.storage-link')}}" method="POST">
+                        <form action="{{ route('admin.server.storage-link') }}" method="POST">
                             @csrf
-                            <button type="submit" id="storage-link-btn" class="btn btn-warning">Create Storage Link</button>
+                            <button type="submit" id="storage-link-btn" class="btn btn-warning">Create Storage
+                                Link</button>
                         </form>
                     </div>
                 </div>
             </div>
-    
+
             <!-- Optimize Application Card -->
             <div class="col-md-4">
                 <div class="card h-100 shadow d-flex flex-column justify-content-between">
@@ -116,13 +117,46 @@
                         <p class="card-text">Optimize application performance by caching routes and configs.</p>
                     </div>
                     <div class="card-footer text-center">
-                        <form action="{{route('admin.server.optimize')}}" method="POST">
+                        <form action="{{ route('admin.server.optimize') }}" method="POST">
                             @csrf
                             <button type="submit" id="optimize-btn" class="btn btn-success">Optimize</button>
                         </form>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow d-flex flex-column justify-content-between">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Migrate Fresh</h5>
+                        <p class="card-text">Reset the database by dropping all tables and running migrations.</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <form action="{{ route('admin.server.migrate-fresh') }}" method="POST">
+                            @csrf
+                            <button type="submit" id="optimize-btn" class="btn btn-danger">Migrate Fresh</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow d-flex flex-column justify-content-between">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Update Project</h5>
+                        <p class="card-text">Pull the latest changes from the GitHub repository and update the project.
+                        </p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <form action="{{ route('admin.server.update') }}" method="POST">
+                            @csrf
+                            <button type="submit" id="update-btn" class="btn btn-warning">Update Project</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
     </div>

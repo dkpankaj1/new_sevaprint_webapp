@@ -67,4 +67,43 @@ class ServerManagerController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function migrateFresh()
+    {
+        if (app()->environment('production')) {
+            $notification = ['message' => "This action is not allowed in the production environment.", 'type' => "error"];
+            return redirect()->back()->with($notification);
+        }
+
+        try {
+            Artisan::call('migrate:fresh', [
+                '--seed' => true, // Seed after refreshing migrations
+                '--force' => true // Forces the command to run without confirmation
+            ]);
+
+            $notification = ['message' => "Database refreshed and seeded successfully.", 'type' => "success"];
+            return redirect()->back()->with($notification);
+
+        } catch (\Exception $e) {
+            $notification = ['message' => $e->getMessage(), 'type' => "error"];
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function updateProject()
+    {
+        // Check if the application is not in production
+        if (app()->environment() !== 'production') {
+            // Call the custom Artisan command
+            Artisan::call('project:update');
+
+            // Redirect with a success message
+            return redirect()->back()->with('status', 'Project update is in progress.');
+        } else {
+            // If in production, show an error or alternative message
+            return redirect()->back()->with('error', 'Cannot update project in the production environment.');
+        }
+    }
+
+
+
 }
