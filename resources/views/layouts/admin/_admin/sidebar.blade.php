@@ -23,7 +23,7 @@
                     <a href="{{ route('admin.users.index') }}">List</a>
                 </li>
                 <li>
-                    <a href="#!">Register</a>
+                    <a href="{{ route('admin.users.create') }}">Register</a>
                 </li>
 
             </ul>
@@ -49,6 +49,13 @@
                 </li>
             </ul>
         </div>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.server.index') }}">
+            <i data-feather="server"></i>
+            <span>Server Manager</span>
+        </a>
     </li>
 
 </ul>

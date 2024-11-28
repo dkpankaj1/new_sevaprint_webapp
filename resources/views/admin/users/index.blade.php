@@ -12,7 +12,10 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Users List</h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Users List</h5>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Add</a>
+                    </div>
                 </div><!-- end card header -->
 
                 <div class="card-body">
@@ -88,8 +91,46 @@
                         }
                     ]
                 });
+
+                $(document).ready(function() {
+                    let deleteUrl = '';
+
+                    // Open delete confirmation modal
+                    $(document).on('click', '.delete-btn', function() {
+                        deleteUrl = $(this).data('url');
+                        $('#deleteModal').modal('show');
+                    });
+
+                    // Confirm delete
+                    $('#confirmDelete').on('click', function() {
+                        $.ajax({
+                            url: deleteUrl,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                $('#deleteModal').modal('hide');
+                                if (response.status === "success") {
+                                    $('#datatable').DataTable().ajax.reload(null, false);
+                                    toastr.success(response.message);
+                                }
+                                if (response.status === "error") {
+                                    toastr.error(response.message);
+                                }
+                            },
+                            error: function() {
+                                alert(
+                                    'An error occurred while trying to delete the classroom.'
+                                );
+                            }
+                        });
+                    });
+                });
             });
         </script>
     @endsection
+
+    <x-delete-confirm-model />
 
 </x-admin-auth-layout>

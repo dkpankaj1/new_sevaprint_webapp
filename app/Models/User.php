@@ -61,6 +61,6 @@ class User extends Authenticatable
     }
     public function getAvatarAttribute($value)
     {
-        return $value ? asset($value) : "https://via.placeholder.com/100";
+        return $value ? asset($value) : asset('avatar/user.jpg');
     }
 }

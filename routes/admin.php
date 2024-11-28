@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\LogOutController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ServerManagerController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\AdminAccessAuth;
 use App\Http\Middleware\AdminAccessGuest;
@@ -24,7 +25,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::resource('users', UserController::class);
+
+        Route::group(['prefix' => 'server', 'as' => 'server.'], function () {
+            Route::get('/', [ServerManagerController::class, 'index'])->name('index');
+            Route::post('clear-cache', [ServerManagerController::class, 'clearCache'])->name('clear-cache');
+            Route::post('storage-link', [ServerManagerController::class, 'storageLink'])->name('storage-link');
+            Route::post('optimize', [ServerManagerController::class, 'optimize'])->name('optimize');
+        });
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
             Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
