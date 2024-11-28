@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between align-items-center py-4">
             <h2 class="mb-0">Welcome, {{ auth()->guard('admin')->user()->name }}!</h2>
-            <button class="btn btn-primary">Notifications <span class="badge bg-light text-dark">5</span></button>
+            <button class="btn btn-primary">Notifications <span class="badge bg-light text-dark">100</span></button>
         </div>
 
         <div class="card">

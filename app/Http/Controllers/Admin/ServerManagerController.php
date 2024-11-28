@@ -97,10 +97,12 @@ class ServerManagerController extends Controller
             Artisan::call('project:update');
 
             // Redirect with a success message
-            return redirect()->back()->with('status', 'Project update is in progress.');
+            $notification = ['message' => "Project update is in progress.", 'type' => "success"];
+            return redirect()->back()->with($notification);
         } else {
             // If in production, show an error or alternative message
-            return redirect()->back()->with('error', 'Cannot update project in the production environment.');
+            $notification = ['message' => 'Cannot update project in the production environment.', 'type' => "error"];
+            return redirect()->back()->with($notification);
         }
     }
 
