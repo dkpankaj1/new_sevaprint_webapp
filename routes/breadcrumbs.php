@@ -78,6 +78,12 @@ Breadcrumbs::for('admin.settings.email', function (BreadcrumbTrail $trail) {
     $trail->push('Email', route('admin.settings.email'));
 });
 
+Breadcrumbs::for('admin.settings.payment-getaway', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.settings.index');
+    $trail->push('Payment Getaway', route('admin.settings.payment-getaway'));
+});
+
+
 
 
 

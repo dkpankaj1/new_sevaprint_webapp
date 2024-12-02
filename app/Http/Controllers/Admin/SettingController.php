@@ -8,6 +8,9 @@ use App\Models\BrandSetting;
 use App\Models\Currency;
 use App\Models\EmailConfiguration;
 use App\Models\GeneralSetting;
+use App\Models\NicePeConfiguration;
+use App\Models\PhonePeConfiguration;
+use App\Models\RazorPayConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -178,4 +181,107 @@ class SettingController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function paymentGetawaySetting()
+    {
+        return view('admin.setting.payment', [
+            "phonePe" => PhonePeConfiguration::first(),
+            "razorPe" => RazorPayConfiguration::first(),
+            "nicePe" => NicePeConfiguration::first(),
+        ]);
+    }
+    public function updatePaymentGetawaySetting(Request $request)
+    {
+        $getaway = $request->input('getaway');
+
+        if ($getaway === "phonepe") {
+            $request->validate([
+                'phonepe_name' => 'required|string|max:255',
+                'phonepe_description' => 'nullable|string',
+                'phonepe_logo' => 'nullable|image|max:2048', // Assuming the logo is an image upload
+                'phonepe_merchant_id' => 'required|string|max:100',
+                'phonepe_salt_key' => 'required|string|max:100',
+                'phonepe_salt_index' => 'required|integer',
+                'phonepe_enable' => 'required|boolean',
+            ]);
+
+            $phonePe = PhonePeConfiguration::first();
+
+            if ($request->hasFile('phonepe_logo')) {
+                ImageUploadHelper::deleteFile($phonePe->logo);
+                $phonePe->logo = ImageUploadHelper::uploadImage(
+                    $request->file('phonepe_logo'),
+                    'static'
+                );
+            }
+
+            $phonePe->name = $request->phonepe_name;
+            $phonePe->description = $request->phonepe_description;
+            $phonePe->merchant_id = $request->phonepe_merchant_id;
+            $phonePe->salt_key = $request->phonepe_salt_key;
+            $phonePe->salt_index = $request->phonepe_salt_index;
+            $phonePe->enable = $request->phonepe_enable;
+            $phonePe->save();
+
+            $notification = ['message' => "phonePe configuration update success", "type" => "success"];
+            return redirect()->back()->with($notification);
+        } elseif ($getaway === "razorpey") {
+            $request->validate([
+                'razorpay_name' => 'required|string|max:255',
+                'razorpay_description' => 'nullable|string',
+                'razorpay_logo' => 'nullable|image|max:2048',
+                'razorpay_api_key' => 'required|string|max:100',
+                'razorpay_api_secret' => 'required|string|max:100',
+                'razorpay_webhook_secret' => 'required|string|max:100',
+                'razorpay_enable' => 'required|boolean',
+            ]);
+
+            $razorPay = RazorPayConfiguration::first();
+            if ($request->hasFile('razorpay_logo')) {
+                ImageUploadHelper::deleteFile($razorPay->logo);
+                $razorPay->logo = ImageUploadHelper::uploadImage(
+                    $request->file('razorpay_logo'),
+                    'static'
+                );
+            }
+            $razorPay->name = $request->razorpay_name;
+            $razorPay->description = $request->razorpay_description;
+            $razorPay->api_key = $request->razorpay_api_key;
+            $razorPay->api_secret = $request->razorpay_api_secret;
+            $razorPay->webhook_secret = $request->razorpay_webhook_secret;
+            $razorPay->enable = $request->razorpay_enable;
+            $razorPay->save();
+            $notification = ['message' => "razorPay configuration update success", "type" => "success"];
+            return redirect()->back()->with($notification);
+        } elseif ($getaway === "nicepe") {
+            $request->validate([
+                'nicepe_name' => 'required|string|max:255',
+                'nicepe_description' => 'nullable|string',
+                'nicepe_logo' => 'nullable|image|max:2048',
+                'nicepe_api_key' => 'required|string|max:100',
+                'nicepe_secret_key' => 'required|string|max:100',
+                'nicepe_enable' => 'required|boolean',
+            ]);
+            $nicePe = NicePeConfiguration::first();
+            if ($request->hasFile('nicepe_logo')) {
+                ImageUploadHelper::deleteFile($nicePe->logo);
+                $nicePe->logo = ImageUploadHelper::uploadImage(
+                    $request->file('nicepe_logo'),
+                    'static'
+                );
+            }
+            $nicePe->name = $request->nicepe_name;
+            $nicePe->description = $request->nicepe_description;
+            $nicePe->api_key = $request->nicepe_api_key;
+            $nicePe->secret_key = $request->nicepe_secret_key;
+            $nicePe->enable = $request->nicepe_enable;
+            $nicePe->save();
+            
+            $notification = ['message' => "nicePe configuration update success", "type" => "success"];
+            return redirect()->back()->with($notification);
+        } else {
+            abort(404);
+        }
+    }
+
 }

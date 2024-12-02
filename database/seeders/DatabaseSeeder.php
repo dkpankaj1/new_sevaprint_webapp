@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CountryStateSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(PaymentGatewaySeeder::class);
 
         User::create([
             'name' => "user",

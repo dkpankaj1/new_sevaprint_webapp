@@ -70,6 +70,10 @@
                     <a href="{{ route('admin.settings.brand') }}">Brand Setting</a>
                 </li>
                 <li>
+                    <a href=" {{ route('admin.settings.payment-getaway') }}">Payment Getaway</a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.settings.email') }}">Email Configuration</a>
                 </li>
             </ul>

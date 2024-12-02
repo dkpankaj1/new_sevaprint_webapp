@@ -36,12 +36,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
             Route::get('/', [SettingController::class, 'index'])->name('index');
-            Route::get('/brand', [SettingController::class, 'brandSetting'])->name('brand');
-            Route::post('/brand', [SettingController::class, 'updateBrandSetting']);
-            Route::get('/general', [SettingController::class, 'generalSetting'])->name('general');
-            Route::post('/general', [SettingController::class, 'updateGeneralSetting']);
-            Route::get('/email', [SettingController::class, 'emailConfigurationSetting'])->name('email');
-            Route::post('/email', [SettingController::class, 'updateEmailConfigurationSetting']);
+            Route::get('brand', [SettingController::class, 'brandSetting'])->name('brand');
+            Route::post('brand', [SettingController::class, 'updateBrandSetting']);
+            Route::get('general', [SettingController::class, 'generalSetting'])->name('general');
+            Route::post('general', [SettingController::class, 'updateGeneralSetting']);
+            Route::get('email', [SettingController::class, 'emailConfigurationSetting'])->name('email');
+            Route::post('email', [SettingController::class, 'updateEmailConfigurationSetting']);
+
+            Route::get('payment-getaway', [SettingController::class, 'paymentGetawaySetting'])->name('payment-getaway');
+            Route::post('payment-getaway', [SettingController::class, 'updatePaymentGetawaySetting']);
+
         });
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {

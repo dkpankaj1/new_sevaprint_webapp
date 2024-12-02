@@ -44,7 +44,7 @@
     <div class="container-xxl mt-5">
         <div class="container settings-grid">
             <div class="row g-4">
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <a href="{{route('admin.settings.general')}}">
                         <div class="settings-tile text-center">
                             <i data-feather="settings" class="settings-icon"></i>
@@ -52,7 +52,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <a href="{{route('admin.settings.brand')}}">
                         <div class="settings-tile text-center">
                             <i data-feather="shield" class="settings-icon"></i>
@@ -60,7 +60,17 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6">
+               
+                <div class="col-md-3 col-sm-6">
+                    <a href="{{route('admin.settings.payment-getaway')}}">
+                        <div class="settings-tile text-center">
+                            <i data-feather="credit-card" class="settings-icon"></i>
+                            <div class="settings-label">Payment Getaway</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
                     <a href="{{route('admin.settings.email')}}">
                         <div class="settings-tile text-center">
                             <i data-feather="mail" class="settings-icon"></i>
@@ -68,6 +78,15 @@
                         </div>
                     </a>
                 </div>
+
+                {{-- <div class="col-md-4 col-sm-6">
+                    <a href="{{route('admin.settings.payment-getaway')}}">
+                        <div class="settings-tile text-center">
+                            <i data-feather="inbox" class="settings-icon"></i>
+                            <div class="settings-label">Email Template</div>
+                        </div>
+                    </a>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\BrandSetting;
 use App\Models\EmailConfiguration;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -25,10 +26,15 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             $brandSetting = BrandSetting::first();
+            $generalSetting = GeneralSetting::first();
             $emailConfig = EmailConfiguration::first();
 
             if ($brandSetting) {
                 View::share('brandSetting', $brandSetting);
+            }
+
+            if ($generalSetting) {
+                View::share('generalSetting', $generalSetting);
             }
 
             if ($emailConfig) {
