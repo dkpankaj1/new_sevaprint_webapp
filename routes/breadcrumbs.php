@@ -58,6 +58,29 @@ Breadcrumbs::for('admin.server.index', function (BreadcrumbTrail $trail) {
 
 
 
+Breadcrumbs::for('admin.settings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Setting', route('admin.settings.index'));
+});
+
+Breadcrumbs::for('admin.settings.brand', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.settings.index');
+    $trail->push('Brand', route('admin.settings.brand'));
+});
+
+Breadcrumbs::for('admin.settings.general', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.settings.index');
+    $trail->push('General', route('admin.settings.general'));
+});
+
+Breadcrumbs::for('admin.settings.email', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.settings.index');
+    $trail->push('Email', route('admin.settings.email'));
+});
+
+
+
+
 Breadcrumbs::for('admin.account.profile.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Account', route('admin.account.profile.index'));

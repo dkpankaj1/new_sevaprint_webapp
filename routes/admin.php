@@ -4,18 +4,17 @@ use App\Http\Controllers\Admin\Auth\LogOutController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ServerManagerController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\AdminAccessAuth;
 use App\Http\Middleware\AdminAccessGuest;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\AdminAccess;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::group(['middleware' => [AdminAccessGuest::class]], function () {
 
         Route::get('/', fn() => redirect()->route('admin.login'));
-
         Route::get('/login', [LoginController::class, 'create'])->name('login');
         Route::post('/login', [LoginController::class, 'store']);
 
@@ -33,6 +32,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('storage-link', [ServerManagerController::class, 'storageLink'])->name('storage-link');
             Route::post('optimize', [ServerManagerController::class, 'optimize'])->name('optimize');
             Route::post('migrate-fresh', [ServerManagerController::class, 'migrateFresh'])->name('migrate-fresh');
+        });
+
+        Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+            Route::get('/', [SettingController::class, 'index'])->name('index');
+            Route::get('/brand', [SettingController::class, 'brandSetting'])->name('brand');
+            Route::post('/brand', [SettingController::class, 'updateBrandSetting']);
+            Route::get('/general', [SettingController::class, 'generalSetting'])->name('general');
+            Route::post('/general', [SettingController::class, 'updateGeneralSetting']);
+            Route::get('/email', [SettingController::class, 'emailConfigurationSetting'])->name('email');
+            Route::post('/email', [SettingController::class, 'updateEmailConfigurationSetting']);
         });
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {

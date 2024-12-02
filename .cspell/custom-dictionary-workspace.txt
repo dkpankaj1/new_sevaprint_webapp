@@ -1,0 +1,6 @@
+# Custom Dictionary Words
+enctype
+Helpdesk
+kadso
+Kadso
+securepassword

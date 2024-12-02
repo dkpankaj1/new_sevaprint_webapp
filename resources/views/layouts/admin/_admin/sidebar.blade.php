@@ -52,6 +52,31 @@
     </li>
 
     <li>
+        <a href="#settings" data-bs-toggle="collapse">
+            <i data-feather="settings"></i>
+            <span> Setting </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="settings">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.settings.index') }}">All Setting</a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.settings.general') }}">General Setting</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.settings.brand') }}">Brand Setting</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.settings.email') }}">Email Configuration</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li>
         <a href="{{ route('admin.server.index') }}">
             <i data-feather="server"></i>
             <span>Server Manager</span>

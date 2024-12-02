@@ -1,6 +1,6 @@
 <x-admin-auth-layout>
-    @section('title', 'Users Detail')
-    @section('page-title', 'Users Detail')
+    @section('title', 'Users | Detail')
+    @section('page-title', 'Users | Detail')
     @section('breadcrumb')
         {{ Breadcrumbs::render('admin.users.show', $user) }}
     @endsection

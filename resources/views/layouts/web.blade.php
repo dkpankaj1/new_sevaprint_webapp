@@ -62,7 +62,6 @@ https://templatemo.com/tm-565-onix-digital
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#services">Services</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
-                            <li class="scroll-to-section"><a href="#portfolio">Portfolio</a></li>
                             <li class="scroll-to-section"><a href="#video">Videos</a></li>
                             <li class="scroll-to-section"><a href="#contact">Contact Us</a></li>
                             <li class="scroll-to-section">
@@ -106,26 +105,10 @@ https://templatemo.com/tm-565-onix-digital
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="services footer-item">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="#">SEO Development</a></li>
-                            <li><a href="#">Business Growth</a></li>
-                            <li><a href="#">Social Media Managment</a></li>
-                            <li><a href="#">Website Optimization</a></li>
-                        </ul>
-                    </div>
+
                 </div>
                 <div class="col-lg-3">
-                    <div class="community footer-item">
-                        <h4>Community</h4>
-                        <ul>
-                            <li><a href="#">Digital Marketing</a></li>
-                            <li><a href="#">Business Ideas</a></li>
-                            <li><a href="#">Website Checkup</a></li>
-                            <li><a href="#">Page Speed Test</a></li>
-                        </ul>
-                    </div>
+
                 </div>
                 <div class="col-lg-3">
                     <div class="subscribe-newsletters footer-item">
@@ -143,8 +126,8 @@ https://templatemo.com/tm-565-onix-digital
                     <div class="copyright">
                         <p>Copyright © 2021 Onix Digital Co., Ltd. All Rights Reserved.
                             <br>
-                            Designed by <a rel="nofollow" href="https://templatemo.com"
-                                title="free CSS templates">TemplateMo</a>
+                            Designed by <a rel="nofollow" href="#" title="free CSS templates">Cortex It
+                                solution</a>
                         </p>
                     </div>
                 </div>

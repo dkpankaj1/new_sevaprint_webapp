@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            'country' => Country::with(['states'])->where(['code' => 'IND'])->first()
+        ]);
     }
 
     public function show(User $user)
@@ -86,7 +89,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', ['user' => $user]);
+        return view('admin.users.edit', [
+            'user' => $user,
+            'country' => Country::with(['states'])->where(['code' => 'IND'])->first()
+        ]);
     }
 
     public function update(Request $request, User $user)

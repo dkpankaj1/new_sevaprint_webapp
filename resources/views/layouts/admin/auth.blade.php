@@ -10,7 +10,7 @@
     <title>@yield('title', 'default title') | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ $brandSetting->favicon ?? asset('backend/images/favicon.ico')}}">
 
     @yield('datatable-css')
     <!-- App css -->

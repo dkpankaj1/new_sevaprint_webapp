@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(CountryStateSeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(SettingsSeeder::class);
+
         User::create([
             'name' => "user",
             'email' => "user@gmail.com",
@@ -29,5 +33,6 @@ class DatabaseSeeder extends Seeder
             'email' => "admin@gmail.com",
             'password' => Hash::make('123456'),
         ]);
+
     }
 }
