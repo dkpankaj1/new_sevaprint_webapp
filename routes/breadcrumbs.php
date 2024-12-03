@@ -33,6 +33,27 @@ Breadcrumbs::for('account.password.change', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
 });
+
+
+Breadcrumbs::for('admin.balance-transfer.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Balance Transfer', route('admin.balance-transfer.index'));
+});
+Breadcrumbs::for('admin.balance-transfer.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.balance-transfer.index');
+    $trail->push('Create', route('admin.balance-transfer.create'));
+});
+Breadcrumbs::for('admin.balance-transfer.show', function (BreadcrumbTrail $trail, $balance_transfer) {
+    $trail->parent('admin.balance-transfer.index');
+    $trail->push('Show', route('admin.balance-transfer.show', $balance_transfer));
+});
+Breadcrumbs::for('admin.balance-transfer.edit', function (BreadcrumbTrail $trail, $balance_transfer) {
+    $trail->parent('admin.balance-transfer.index');
+    $trail->push('Edit', route('admin.balance-transfer.edit', $balance_transfer));
+});
+
+
+
 Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Users', route('admin.users.index'));
@@ -84,7 +105,15 @@ Breadcrumbs::for('admin.settings.payment-getaway', function (BreadcrumbTrail $tr
 });
 
 
+Breadcrumbs::for('admin.transaction.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Transaction', route('admin.transaction.index'));
+});
 
+Breadcrumbs::for('admin.transaction.show', function (BreadcrumbTrail $trail,$transaction) {
+    $trail->parent('admin.transaction.index');
+    $trail->push('Show', route('admin.transaction.show',$transaction));
+});
 
 
 Breadcrumbs::for('admin.account.profile.index', function (BreadcrumbTrail $trail) {

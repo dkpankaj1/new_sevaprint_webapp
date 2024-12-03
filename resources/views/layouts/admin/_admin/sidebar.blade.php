@@ -25,6 +25,40 @@
                 <li>
                     <a href="{{ route('admin.users.create') }}">Register</a>
                 </li>
+            </ul>
+        </div>
+    </li>
+
+    <li>
+        <a href="#sidebarTransaction" data-bs-toggle="collapse">
+            <i data-feather="credit-card"></i>
+            <span> Transaction </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarTransaction">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.transaction.index') }}">List</a>
+                </li>
+
+            </ul>
+        </div>
+    </li>
+
+    <li>
+        <a href="#sidebarBalanceTransaction" data-bs-toggle="collapse">
+            <i data-feather="book"></i>
+            <span> Balance Transfer </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarBalanceTransaction">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.balance-transfer.create') }}">New</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.balance-transfer.index') }}">List</a>
+                </li>
 
             </ul>
         </div>

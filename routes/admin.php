@@ -1,10 +1,12 @@
 <?php
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\LogOutController;
+use App\Http\Controllers\Admin\BalanceTransferController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ServerManagerController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\AdminAccessAuth;
 use App\Http\Middleware\AdminAccessGuest;
@@ -21,6 +23,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     });
 
     Route::group(['middleware' => [AdminAccessAuth::class]], function () {
+
+        Route::resource('balance-transfer', BalanceTransferController::class);
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -47,6 +51,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('payment-getaway', [SettingController::class, 'updatePaymentGetawaySetting']);
 
         });
+
+        Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
 
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
             Route::get('/', [ProfileController::class, 'index'])->name('profile.index');

@@ -16,4 +16,9 @@ class GeneralSetting extends Model
         "copyright",
         "developed_by",
     ];
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class,'default_currency');
+    }
 }

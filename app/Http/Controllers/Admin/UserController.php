@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\GeneralSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Yajra\DataTables\Facades\DataTables;
@@ -15,6 +17,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+        $generalSetting = GeneralSetting::first();
+
         if ($request->expectsJson()) {
             $userQuery = User::query()->orderBy('id', 'desc');
             return DataTables::eloquent($userQuery)
@@ -22,6 +26,11 @@ class UserController extends Controller
                 ->addColumn('status', fn($user) => $user->is_active == 1
                     ? view('components.badges', ['type' => 'success', 'text' => 'active'])
                     : view('components.badges', ['type' => 'danger', 'text' => 'in-active']))
+                ->addColumn('wallet', function ($user) use ($generalSetting) {
+                    $currencySymbol = $generalSetting->currency->symbol ?? '';
+                    $walletAmount = number_format($user->wallet, 2); 
+                    return "{$currencySymbol} {$walletAmount}";
+                })
                 ->addColumn('avatar', fn($user) => view('components.user-avatar', ['src' => $user->avatar]))
                 ->addColumn('action', function ($user) {
                     return view('components.show-btn', ['url' => route('admin.users.show', $user->id)]) .
@@ -36,110 +45,114 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create', [
-            'country' => Country::with(['states'])->where(['code' => 'IND'])->first()
-        ]);
+        $country = Country::with('states')->where('code', 'IND')->first();
+        return view('admin.users.create', compact('country'));
     }
 
     public function show(User $user)
     {
-
-        return view('admin.users.show', ['user' => $user]);
+        return view('admin.users.show', compact('user'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)],
-            'password' => ['required', Rules\Password::defaults()],
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'postal_code' => 'nullable|string|max:20',
-            'wallet' => 'required|numeric',
-            'is_active' => 'required|boolean',
-        ]);
+        $data = $request->validate($this->rules());
 
         try {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->phone = $request->phone;
-            $user->address = $request->address;
-            $user->city = $request->city;
-            $user->state = $request->state;
-            $user->country = $request->country;
-            $user->postal_code = $request->postal_code;
-            $user->wallet = $request->wallet ?? 0;
-            $user->is_active = $request->is_active;
-            $user->save();
+            $data['password'] = Hash::make($data['password']);
+            $data['wallet'] = 0;
 
-            $notification = ['message' => 'Create Success.', 'type' => 'success'];
-            return redirect()->route('admin.users.index')->with($notification);
+            User::create($data);
+
+            return redirect()->route('admin.users.index')->with([
+                'message' => 'User created successfully.',
+                'type' => 'success',
+            ]);
 
         } catch (\Exception $e) {
-            $notification = ['message' => $e->getMessage(), 'type' => 'error'];
-            return redirect()->back()->with($notification);
+            Log::error('User creation error: ' . $e->getMessage());
+
+            return redirect()->back()->with([
+                'message' => 'An error occurred. Please try again.',
+                'type' => 'error',
+            ]);
         }
     }
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', [
-            'user' => $user,
-            'country' => Country::with(['states'])->where(['code' => 'IND'])->first()
-        ]);
+        $country = Country::with('states')->where('code', 'IND')->first();
+        return view('admin.users.edit', compact('user', 'country'));
     }
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'postal_code' => 'nullable|string|max:20',
-            'is_active' => 'required|boolean',
-        ]);
+        $data = $request->validate($this->rules($user->id));
 
         try {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->address = $request->address;
-            $user->city = $request->city;
-            $user->state = $request->state;
-            $user->country = $request->country;
-            $user->postal_code = $request->postal_code;
-            $user->is_active = $request->is_active;
-            $user->save();
+            $user->update($data);
 
-            $notification = ['message' => 'Update Success.', 'type' => 'success'];
-            return redirect()->route('admin.users.index')->with($notification);
+            return redirect()->route('admin.users.index')->with([
+                'message' => 'User updated successfully.',
+                'type' => 'success',
+            ]);
 
         } catch (\Exception $e) {
-            $notification = ['message' => $e->getMessage(), 'type' => 'error'];
-            return redirect()->back()->with($notification);
+            Log::error('User update error: ' . $e->getMessage());
+
+            return redirect()->back()->with([
+                'message' => 'An error occurred. Please try again.',
+                'type' => 'error',
+            ]);
         }
     }
 
     public function destroy(User $user)
     {
         try {
-            $user->is_active = false;
-            $user->save();
-            $notification = ['message' => 'user de-activate.', 'status' => 'success'];
-        } catch (\Exception $e) {
-            $notification = ['message' => $e->getMessage(), 'status' => 'error'];
-        }
+            $user->update(['is_active' => false]);
 
-        return response()->json($notification);
+            return response()->json([
+                'message' => 'User deactivated successfully.',
+                'status' => 'success',
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('User deletion error: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'An error occurred. Please try again.',
+                'status' => 'error',
+            ]);
+        }
+    }
+
+    /**
+     * Get validation rules for storing/updating users.
+     *
+     * @param  int|null  $userId
+     * @return array
+     */
+    private function rules($userId = null)
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($userId),
+            ],
+            'password' => $userId ? 'nullable' : ['required', Rules\Password::defaults()],
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'postal_code' => 'nullable|string|max:20',
+            'wallet' => 'nullable|numeric|min:0',
+            'is_active' => 'required|boolean',
+        ];
     }
 }

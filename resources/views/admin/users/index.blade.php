@@ -73,6 +73,11 @@
                             title: 'City'
                         },
                         {
+                            data: 'wallet',
+                            name: 'wallet',
+                            title: 'Wallet'
+                        },
+                        {
                             data: 'state',
                             name: 'state',
                             title: 'State'

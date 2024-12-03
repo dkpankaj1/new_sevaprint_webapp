@@ -119,14 +119,6 @@
                             <h5>Additional Information</h5>
                         </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label for="name" class="form-label">Wallet</label>
-                            <input type="number" class="form-control" name="wallet" value="{{ old('wallet') }}"
-                                placeholder="Enter amount">
-                            @error('wallet')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         <div class="col-md-4 mb-3">
                             <label for="is_active" class="form-label">Active</label>

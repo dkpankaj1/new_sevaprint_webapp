@@ -23,8 +23,8 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
         $key = $this->generateThrottleKey($request->input('email'), $request->ip());
-        $this->ensureIsNotRateLimited($request,$key);
-        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        $this->ensureIsNotRateLimited($request, $key);
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => true], $request->boolean('remember'))) {
             $this->hitRateLimiter($key);
 
             throw ValidationException::withMessages([
