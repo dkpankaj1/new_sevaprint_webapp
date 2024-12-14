@@ -10,6 +10,20 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push(__('common.breadcrumb.dashboard'), route('dashboard'));
 });
 
+
+
+Breadcrumbs::for('wallet.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push("Wallet", route('wallet.index'));
+});
+
+Breadcrumbs::for('wallet.recharge', function (BreadcrumbTrail $trail) {
+    $trail->parent('wallet.index');
+    $trail->push("Recharge", route('wallet.recharge'));
+});
+
+
+
 Breadcrumbs::for('account.profile.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push(__('common.breadcrumb.account'), route('account.profile.index'));
@@ -110,9 +124,9 @@ Breadcrumbs::for('admin.transaction.index', function (BreadcrumbTrail $trail) {
     $trail->push('Transaction', route('admin.transaction.index'));
 });
 
-Breadcrumbs::for('admin.transaction.show', function (BreadcrumbTrail $trail,$transaction) {
+Breadcrumbs::for('admin.transaction.show', function (BreadcrumbTrail $trail, $transaction) {
     $trail->parent('admin.transaction.index');
-    $trail->push('Show', route('admin.transaction.show',$transaction));
+    $trail->push('Show', route('admin.transaction.show', $transaction));
 });
 
 

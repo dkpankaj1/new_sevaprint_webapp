@@ -22,14 +22,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="user" class="form-label">User</label>
-                        <select name="user" class="form-control" id="select-field">
-                            <option value="">---select---</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}" @if (old('user', $balanceTransfer->user_id) == $user->id) selected @endif>
-                                    {{ $user->name }} - {{ $user->email }} (Balance : {{ $user->wallet }})
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="text" disabled class="form-control" value=" {{ $balanceTransfer->user->name }} - {{ $balanceTransfer->user->email }} (Balance : {{ $balanceTransfer->user->wallet }})">
                         @error('user')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror

@@ -11,6 +11,8 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
+
+    @yield('datatable-css')
     <!-- App css -->
     <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
     <!-- Icons -->
@@ -42,7 +44,7 @@
                 <div id="sidebar-menu">
 
                     <div class="logo-box">
-                        <a href="index.html" class="logo logo-light">
+                        <a href="{{ route('dashboard') }}" class="logo logo-light">
                             <span class="logo-sm">
                                 <img src="{{ asset('backend/images/logo-sm.png') }}" alt="" height="22">
                             </span>
@@ -50,7 +52,7 @@
                                 <img src="{{ asset('backend/images/logo-light.png') }}" alt="" height="24">
                             </span>
                         </a>
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="{{ route('dashboard') }}" class="logo logo-dark">
                             <span class="logo-sm">
                                 <img src="{{ asset('backend/images/logo-sm.png') }}" alt="" height="22">
                             </span>
@@ -132,6 +134,7 @@
     <script src="{{ asset('backend/libs/toastr/toastr.min.js') }}"></script>
 
     <!-- App js-->
+    @yield('datatable-js')
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <x-toastr />
 

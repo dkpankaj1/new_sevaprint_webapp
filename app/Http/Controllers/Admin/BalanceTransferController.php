@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\TransactionEnum;
+use App\Helpers\TransactionHelper;
 use App\Http\Controllers\Controller;
 use App\Models\BalanceTransfer;
 use App\Models\GeneralSetting;
@@ -78,29 +79,29 @@ class BalanceTransferController extends Controller
             'amount.min' => 'Amount must be at least 0.01.',
         ]);
 
-        DB::beginTransaction();
 
         try {
+
+            DB::beginTransaction();
+
             $user = User::findOrFail($validated['user']);
             $adminId = Auth::guard('admin')->id();
-            $transactionId = md5(uniqid(time(), true));
-            $currency = $this->generalSetting->currency->code;
 
-            // Create Transaction
             $transaction = Transaction::create([
-                'user_id' => $user->id,
-                'transaction_type' => TransactionEnum::TYPE_WALLET,
-                'transaction_direction' => TransactionEnum::DIRECTION_CREDIT,
-                'transaction_id' => $transactionId,
-                'opening_balance' => $user->wallet,
+                "user_id" => $user->id,
+                "transaction_type" => TransactionEnum::TYPE_INTERNAL,
+                "transaction_direction" => TransactionEnum::DIRECTION_CREDIT,
+                "vendor" => TransactionEnum::VENDOR_INTERNAL,
+                "transaction_id" => TransactionHelper::generateTransactionId(),
+                "opening_balance" => $user->wallet,
                 'amount' => $validated['amount'],
                 'fee' => 0,
                 'tax' => 0,
-                'net_amount' => $validated['amount'],
                 'closing_balance' => $user->wallet + $validated['amount'],
-                'currency' => $currency,
-                'payment_method' => 'wallet',
+                'currency_id' => TransactionHelper::getCurrency()->id,
+                "payment_method" => TransactionEnum::METHOD_WALLET,
                 'status' => TransactionEnum::STATUS_COMPLETE,
+                'metadata' => ['message' => "wallet recharge by admin"],
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
@@ -115,7 +116,6 @@ class BalanceTransferController extends Controller
                 'status' => "complete"
             ]);
 
-            // Update User Wallet Balance
             $user->increment('wallet', $validated['amount']);
 
             DB::commit();
@@ -158,8 +158,7 @@ class BalanceTransferController extends Controller
     }
     public function update(Request $request, BalanceTransfer $balance_transfer)
     {
-        $request->validate([
-            'user' => ['required', 'integer', Rule::exists('users', 'id')],
+        $validated = $request->validate([
             'amount' => ['required', 'numeric', 'min:0.01'],
             'notes' => ['nullable', 'string', 'max:500'],
         ]);
@@ -167,65 +166,61 @@ class BalanceTransferController extends Controller
         DB::beginTransaction();
 
         try {
-            $currency = $this->generalSetting->currency->code;
+            $adminId = Auth::guard('admin')->id();
+            $user = $balance_transfer->user;
 
-            // restore user wallet
-            $transaction = Transaction::create([
-                'user_id' => $balance_transfer->user->id,
-                'transaction_type' => TransactionEnum::TYPE_WALLET,
+            // Debit Transaction
+            $debitTransaction = Transaction::create([
+                'user_id' => $user->id,
+                'transaction_type' => TransactionEnum::TYPE_INTERNAL,
                 'transaction_direction' => TransactionEnum::DIRECTION_DEBIT,
-                'transaction_id' => md5(uniqid(time(), true)),
-                'opening_balance' => $balance_transfer->user->wallet,
+                'vendor' => TransactionEnum::VENDOR_INTERNAL,
+                'transaction_id' => TransactionHelper::generateTransactionId(),
+                'opening_balance' => $user->wallet,
                 'amount' => $balance_transfer->amount,
                 'fee' => 0,
                 'tax' => 0,
-                'net_amount' => $balance_transfer->amount,
-                'closing_balance' => $balance_transfer->user->wallet - $balance_transfer->amount,
-                'currency' => $currency,
-                'payment_method' => 'wallet',
+                'closing_balance' => $user->wallet - $balance_transfer->amount,
+                'currency_id' => TransactionHelper::getCurrency()->id,
+                'payment_method' => TransactionEnum::METHOD_WALLET,
                 'status' => TransactionEnum::STATUS_COMPLETE,
+                'metadata' => ['message' => 'Wallet restored by admin'],
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
-            $balance_transfer->user->decrement('wallet', $balance_transfer->amount);
 
+            $user->decrement('wallet', $balance_transfer->amount);
 
-
-            $user = User::findOrFail($request->user);
-            $adminId = Auth::guard('admin')->id();
-            $transactionId = md5(uniqid(time(), true));
-
-            // Create Transaction
-            $transaction = Transaction::create([
+            // Credit Transaction
+            $creditTransaction = Transaction::create([
                 'user_id' => $user->id,
-                'transaction_type' => TransactionEnum::TYPE_WALLET,
+                'transaction_type' => TransactionEnum::TYPE_INTERNAL,
                 'transaction_direction' => TransactionEnum::DIRECTION_CREDIT,
-                'transaction_id' => $transactionId,
+                'vendor' => TransactionEnum::VENDOR_INTERNAL,
+                'transaction_id' => TransactionHelper::generateTransactionId(),
                 'opening_balance' => $user->wallet,
-                'amount' => $request->amount,
+                'amount' => $validated['amount'],
                 'fee' => 0,
                 'tax' => 0,
-                'net_amount' => $request->amount,
-                'closing_balance' => $user->wallet + $request->amount,
-                'currency' => $currency,
-                'payment_method' => 'wallet',
+                'closing_balance' => $user->wallet + $validated['amount'],
+                'currency_id' => TransactionHelper::getCurrency()->id,
+                'payment_method' => TransactionEnum::METHOD_WALLET,
                 'status' => TransactionEnum::STATUS_COMPLETE,
+                'metadata' => ['message' => 'Wallet recharged by admin'],
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
+
+            $user->increment('wallet', $validated['amount']);
 
             // Update Balance Transfer Record
             $balance_transfer->update([
                 'admin_id' => $adminId,
-                'user_id' => $user->id,
-                'transaction_id' => $transaction->id,
-                'amount' => $request->amount,
-                'notes' => $request->notes,
-                'status' => "complete"
+                'transaction_id' => $creditTransaction->id,
+                'amount' => $validated['amount'],
+                'notes' => $validated['notes'],
+                'status' => 'complete',
             ]);
-
-            // Update User Wallet Balance
-            $user->increment('wallet', $request->amount);
 
             DB::commit();
 
@@ -234,12 +229,16 @@ class BalanceTransferController extends Controller
 
         } catch (\Throwable $e) {
             DB::rollBack();
-            \Log::error('Balance transfer failed.', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            \Log::error('Balance transfer failed.', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
             return redirect()->route('admin.balance-transfer.index')
                 ->with(['message' => 'An error occurred during balance transfer. Please try again.', 'type' => 'error']);
         }
-
     }
+
     public function destroy(BalanceTransfer $balance_transfer)
     {
     }

@@ -4,20 +4,23 @@ namespace App\Enums;
 
 enum TransactionEnum: string
 {
-    // Transaction Status
+
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETE = 'complete';
     const STATUS_FAILED = 'failed';
 
-    // Transaction Direction
     const DIRECTION_CREDIT = 'credit';
     const DIRECTION_DEBIT = 'debit';
 
-    // Transaction Type
-    const TYPE_WALLET = 'wallet';
-    const TYPE_RAZORPAY = 'razorpay';
-    const TYPE_PHONEPE = 'phonepe';
-    const TYPE_NICEPE = 'nicepe';
+    const METHOD_WALLET = 'wallet';
+
+    const TYPE_INTERNAL = 'internal';
+    const TYPE_EXTERNAL = 'external';
+
+    const VENDOR_INTERNAL = 'internal';
+    const VENDOR_RAZORPAY = 'razorpay';
+    const VENDOR_PHONEPE = 'phonepe';
+    const VENDOR_NICEPE = 'nicepe';
 
 
 }

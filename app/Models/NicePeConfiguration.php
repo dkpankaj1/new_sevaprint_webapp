@@ -10,8 +10,10 @@ class NicePeConfiguration extends Model
         "name",
         "description",
         "logo",
-        "api_key",
+        "upi_id",
+        "token",
         "secret_key",
+        "base_url",
         "enable",
     ];
     public function getLogoAttribute($value)

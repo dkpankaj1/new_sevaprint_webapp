@@ -6,6 +6,7 @@ return [
         'title' => 'Dashboard',
         'welcome' => "Welcome",
         'notification' => "Notification",
+        'my_wallet' => "My Wallet",
         'walletBalance' => "Wallet Balance"
     ],
 

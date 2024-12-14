@@ -196,7 +196,7 @@ class SettingController extends Controller
 
         if ($getaway === "phonepe") {
             $request->validate([
-                'phonepe_name' => 'required|string|max:255',
+                // 'phonepe_name' => 'required|string|max:255',
                 'phonepe_description' => 'nullable|string',
                 'phonepe_logo' => 'nullable|image|max:2048', // Assuming the logo is an image upload
                 'phonepe_merchant_id' => 'required|string|max:100',
@@ -215,7 +215,8 @@ class SettingController extends Controller
                 );
             }
 
-            $phonePe->name = $request->phonepe_name;
+            // $phonePe->name = $request->phonepe_name;
+            $phonePe->name = 'phonepe';
             $phonePe->description = $request->phonepe_description;
             $phonePe->merchant_id = $request->phonepe_merchant_id;
             $phonePe->salt_key = $request->phonepe_salt_key;
@@ -227,7 +228,7 @@ class SettingController extends Controller
             return redirect()->back()->with($notification);
         } elseif ($getaway === "razorpey") {
             $request->validate([
-                'razorpay_name' => 'required|string|max:255',
+                // 'razorpay_name' => 'required|string|max:255',
                 'razorpay_description' => 'nullable|string',
                 'razorpay_logo' => 'nullable|image|max:2048',
                 'razorpay_api_key' => 'required|string|max:100',
@@ -244,7 +245,8 @@ class SettingController extends Controller
                     'static'
                 );
             }
-            $razorPay->name = $request->razorpay_name;
+            // $razorPay->name = $request->razorpay_name;
+            $razorPay->name = 'razorpey';
             $razorPay->description = $request->razorpay_description;
             $razorPay->api_key = $request->razorpay_api_key;
             $razorPay->api_secret = $request->razorpay_api_secret;
@@ -253,12 +255,14 @@ class SettingController extends Controller
             $razorPay->save();
             $notification = ['message' => "razorPay configuration update success", "type" => "success"];
             return redirect()->back()->with($notification);
+
         } elseif ($getaway === "nicepe") {
             $request->validate([
-                'nicepe_name' => 'required|string|max:255',
+                // 'nicepe_name' => 'required|string|max:255',
                 'nicepe_description' => 'nullable|string',
                 'nicepe_logo' => 'nullable|image|max:2048',
-                'nicepe_api_key' => 'required|string|max:100',
+                'nicepe_upi_id' => 'required|string|max:100',
+                'nicepe_token' => 'required|string|max:100',
                 'nicepe_secret_key' => 'required|string|max:100',
                 'nicepe_enable' => 'required|boolean',
             ]);
@@ -270,13 +274,15 @@ class SettingController extends Controller
                     'static'
                 );
             }
-            $nicePe->name = $request->nicepe_name;
+            // $nicePe->name = $request->nicepe_name;
+            $nicePe->name = 'nicepe';
             $nicePe->description = $request->nicepe_description;
-            $nicePe->api_key = $request->nicepe_api_key;
+            $nicePe->upi_id = $request->nicepe_upi_id;
+            $nicePe->token = $request->nicepe_token;
             $nicePe->secret_key = $request->nicepe_secret_key;
             $nicePe->enable = $request->nicepe_enable;
             $nicePe->save();
-            
+
             $notification = ['message' => "nicePe configuration update success", "type" => "success"];
             return redirect()->back()->with($notification);
         } else {

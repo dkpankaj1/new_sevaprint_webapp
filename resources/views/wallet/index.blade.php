@@ -1,32 +1,51 @@
-<x-admin-auth-layout>
-    @section('title', 'Transaction | List')
-    @section('page-title', 'Transaction | List')
+<x-user-auth-layout>
+    @section('title', __('Wallet'))
     @section('breadcrumb')
-        {{ Breadcrumbs::render('admin.transaction.index') }}
+        {{ Breadcrumbs::render('wallet.index') }}
     @endsection
-    <!-- Start Content-->
-    <div class="container-fluid">
 
-        <x-data-table>
-
-            <div class="card">
-
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Transaction List</h5>
+    <!-- Wallet Overview -->
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="card-title">
+                        My Wallet
+                    </h3>
+                    <div class="my-4">
+                        <h6 class="mb-0">Wallet Balance</h6>
+                        <h2 class="text-success">{{ $generalSetting->currency->symbol }} {{ auth()->user()->wallet }}
+                        </h2>
                     </div>
-                </div><!-- end card header -->
-
-                <div class="card-body">
-                    <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
-                    </table>
                 </div>
+                <div>
+                    <a class="btn btn-primary me-2" href="{{route('wallet.recharge')}}">
+                        <i data-feather="plus-circle"></i> Add Balance
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Transaction History in a Card -->
+    <x-data-table>
+
+        <div class="card">
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Transaction List</h5>
+                </div>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
+                </table>
             </div>
 
-        </x-data-table>
+        </div>
 
-    </div> <!-- container -->
+    </x-data-table>
 
     @section('page-js')
         <script>
@@ -35,7 +54,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('admin.transaction.index') }}",
+                        url: "{{ route('wallet.index') }}",
                         type: "GET",
                         dataType: "json"
                     },
@@ -47,14 +66,9 @@
                             orderable: false,
                         },
                         {
-                            data: 'user',
-                            name: 'user',
-                            title: 'Name'
-                        },
-                        {
-                            data: 'email',
-                            name: 'email',
-                            title: 'Email'
+                            data: 'transaction_id',
+                            name: 'transaction_id',
+                            title: 'Transaction ID'
                         },
                         {
                             data: 'transaction_type',
@@ -97,13 +111,6 @@
                             data: 'status',
                             name: 'status',
                             title: 'Status'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            title: 'Action',
-                            orderable: false,
-                            searchable: false
                         }
                     ]
                 });
@@ -113,4 +120,6 @@
         </script>
     @endsection
 
-</x-admin-auth-layout>
+
+
+</x-user-auth-layout>

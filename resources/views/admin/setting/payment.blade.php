@@ -17,15 +17,11 @@
 
                     <div class="col-md-8">
                         <div class="row">
+
                             <div class="col-md-6 mb-3">
                                 <label for="phonepe-name" class="form-label">Name</label>
-                                <input type="text" id="phonepe-name" name="phonepe_name"
-                                    value="{{ old('phonepe_name', $phonePe->name) }}"
-                                    class="form-control @error('phonepe_name') is-invalid @enderror"
-                                    placeholder="Enter gateway name" required>
-                                @error('phonepe_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="phonepe-name" name="phonepe_name" value="{{ $phonePe->name }}"
+                                    class="form-control" placeholder="Enter gateway name" disabled>
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -113,13 +109,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="razorpay-name" class="form-label">Name</label>
-                                <input type="text" id="razorpay-name" name="razorpay_name"
-                                    value="{{ old('razorpay_name', $razorPe->name) }}"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Enter gateway name" required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="razorpay-name" name="razorpay_name" value="{{ $razorPe->name }}"
+                                    class="form-control" placeholder="Enter gateway name" disabled>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="razorpay-api-key" class="form-label">API Key</label>
@@ -208,14 +199,31 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nicepe-name" class="form-label">Name</label>
-                                <input type="text" id="nicepe-name" name="nicepe_name"
-                                    value="{{ old('nicepe_name', $nicePe->name) }}"
-                                    class="form-control @error('nicepe_name') is-invalid @enderror"
-                                    placeholder="Enter gateway name" required>
-                                @error('nicepe_name')
+                                <input type="text" id="nicepe-name" name="nicepe_name" value="{{ $nicePe->name }}"
+                                    class="form-control" placeholder="Enter gateway name" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nicepe-nicepe_upi_id" class="form-label">UPI ID</label>
+                                <input type="text" id="nicepe-nicepe_upi_id" name="nicepe_upi_id"
+                                    value="{{ old('nicepe_upi_id', $nicePe->upi_id) }}"
+                                    class="form-control @error('nicepe_upi_id') is-invalid @enderror"
+                                    placeholder="Enter UPI ID" required>
+                                @error('nicepe_upi_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="nicepe-token" class="form-label">Token</label>
+                                <input type="text" id="nicepe-token" name="nicepe_token"
+                                    value="{{ old('nicepe_token', $nicePe->token) }}"
+                                    class="form-control @error('nicepe_token') is-invalid @enderror"
+                                    placeholder="Enter Token" required>
+                                @error('nicepe_token')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="col-md-6 mb-3">
                                 <label for="nicepe-secret-key" class="form-label">Secret Key</label>
                                 <input type="text" id="nicepe-secret-key" name="nicepe_secret_key"
@@ -223,16 +231,6 @@
                                     class="form-control @error('nicepe_secret_key') is-invalid @enderror"
                                     placeholder="Enter merchant ID" required>
                                 @error('nicepe_secret_key')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="nicepe-api-key" class="form-label">API Key</label>
-                                <input type="text" id="nicepe-api-key" name="nicepe_api_key"
-                                    value="{{ old('nicepe_api_key', $nicePe->api_key) }}"
-                                    class="form-control @error('nicepe_api_key') is-invalid @enderror"
-                                    placeholder="Enter API key" required>
-                                @error('nicepe_api_key')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\User\Auth\LoginController as UserLoginController;
 use App\Http\Controllers\User\Auth\LogOutController as UserLogoutController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\User\Auth\PasswordResetLinkController;
 use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\WalletController;
 use App\Http\Middleware\LocaleMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +35,29 @@ Route::group(['middleware' => LocaleMiddleware::class], function () {
         Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
     });
 
+    Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
+
+        Route::get('phonepe/redirect', [PaymentController::class, 'phonePeRedirect'])->name('phonepe.redirect');
+        Route::get('razorpay/redirect', [PaymentController::class, 'razorPayRedirect'])->name('razorpay.redirect');
+        Route::post('nicepe/redirect', [PaymentController::class, 'nicePeRedirect'])
+            ->withoutMiddleware(['web'])->name('nicepe.redirect');
+    });
+
     Route::group(['middleware' => ['auth']], function () {
+
         Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+        Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
+            Route::get('success', [PaymentController::class, 'paymentSuccess'])->name('success');
+            Route::get('failed', [PaymentController::class, 'paymentFailed'])->name('failed');
+        });
+
+        Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function () {
+            Route::get('/', [WalletController::class, 'index'])->name('index');
+            Route::get('recharge', [WalletController::class, 'recharge'])->name('recharge');
+            Route::post('recharge', [WalletController::class, 'rechargeProcess']);
+        });
+
         Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
             Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
             Route::get('profile', [ProfileController::class, 'profile'])->name('profile.edit');

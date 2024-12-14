@@ -19,28 +19,27 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         if ($request->expectsJson()) {
-
             $transactionsQuery = Transaction::query()->orderBy('id', 'desc');
             return DataTables::eloquent($transactionsQuery)
                 ->addIndexColumn()
                 ->addColumn('user', fn($transaction) => $transaction->user->name)
                 ->addColumn('email', fn($transaction) => $transaction->user->email)
-
+                ->addColumn('transaction_direction', fn($transaction) => ucfirst($transaction->transaction_direction))
                 ->addColumn('opening_balance', function ($transaction) {
-                    $currencySymbol = $this->generalSetting->currency->symbol ?? '';
-                    return "{$currencySymbol} {$transaction->opening_balance}";
+                    return "{$transaction->currency->code} {$transaction->opening_balance}";
                 })
-
-                ->addColumn('net_amount', function ($transaction) {
-                    $currencySymbol = $this->generalSetting->currency->symbol ?? '';
-                    return "{$currencySymbol} {$transaction->net_amount}";
+                ->addColumn('amount', function ($transaction) {
+                    return "{$transaction->currency->code} {$transaction->amount}";
                 })
-
+                ->addColumn('fee', function ($transaction) {
+                    return "{$transaction->currency->code} {$transaction->fee}";
+                })
+                ->addColumn('tax', function ($transaction) {
+                    return "{$transaction->tax} (%)";
+                })
                 ->addColumn('closing_balance', function ($transaction) {
-                    $currencySymbol = $this->generalSetting->currency->symbol ?? '';
-                    return "{$currencySymbol} {$transaction->closing_balance}";
+                    return "{$transaction->currency->code} {$transaction->closing_balance}";
                 })
-
                 ->addColumn('status', function ($transaction) {
                     $badgeType = match ($transaction->status) {
                         'complete' => 'success',

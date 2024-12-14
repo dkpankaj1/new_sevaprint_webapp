@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->string('name')->nullable(false);
             $table->text('description')->nullable(false);
             $table->string('logo')->nullable();
-            $table->string('api_key')->nullable(false);
+            $table->string('upi_id')->nullable(false);
+            $table->string('token')->nullable(false);
             $table->string('secret_key')->nullable(false);
+            $table->string('base_url')->nullable(false);
             $table->boolean('enable')->default(true);
             $table->timestamps();
         });

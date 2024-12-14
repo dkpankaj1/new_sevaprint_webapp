@@ -14,19 +14,24 @@ class PaymentGatewaySeeder extends Seeder
      */
     public function run(): void
     {
+        
+
+
         // Seed NicePeConfiguration
         NicePeConfiguration::create([
-            'name' => 'NicePe',
+            'name' => 'nicepe',
             'description' => 'NicePe payment gateway integration',
             'logo' => 'nicepe_logo.png',
-            'api_key' => 'nicepe_api_key_123',
-            'secret_key' => 'nicepe_secret_key_123',
+            'upi_id' => 'paytmqr281005050101mnp7fhqey7n0@paytm',
+            'token' => 'a8f156-c687de-f6a2eb-09dac9-984cf2',
+            'secret_key' => 'lpVnf2pnVJ',
+            'base_url' => 'https://pg.allnice.in/order/paytm',
             'enable' => true,
         ]);
 
         // Seed PhonePeConfiguration
         PhonePeConfiguration::create([
-            'name' => 'PhonePe',
+            'name' => 'phonepe',
             'description' => 'PhonePe payment gateway integration',
             'logo' => 'phonepe_logo.png',
             'merchant_id' => 'phonepe_merchant_123',
@@ -37,7 +42,7 @@ class PaymentGatewaySeeder extends Seeder
 
         // Seed RazorPayConfiguration
         RazorPayConfiguration::create([
-            'name' => 'RazorPay',
+            'name' => 'razorpey',
             'description' => 'RazorPay payment gateway integration',
             'logo' => 'razorpay_logo.png',
             'api_key' => 'razorpay_api_key_123',
