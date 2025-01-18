@@ -263,6 +263,7 @@ class PanCardController extends Controller
 
     public function print(PanCard $panCard){
         Gate::authorize('view', $panCard);
-            return view('nsdl-pan.print',['data' => $panCard]);
+        
+        return view('nsdl-pan.print',['data' => $panCard]);
     }
 }

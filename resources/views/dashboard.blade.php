@@ -22,7 +22,8 @@
                         <span class="fs-15">
                             <i class="mdi mdi-wallet me-2 align-middle"></i>
                             {{ __('pages.dashboard.walletBalance') }}: <span
-                                class="badge bg-primary-subtle text-primary px-2 py-1 fs-13 fw-normal">{{ $generalSetting->currency->symbol }} {{ auth()->user()->wallet }}</span>
+                                class="badge bg-primary-subtle text-primary px-2 py-1 fs-13 fw-normal">{{ $generalSetting->currency->symbol }}
+                                {{ auth()->user()->wallet }}</span>
                         </span>
                     </div>
                 </div>
@@ -35,7 +36,22 @@
         </div>
     </div>
 
-    
+
+    <div class="row gap-2">
+
+        @foreach ($features as $feature)
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="/mobile-recharge" class="text-decoration-none">
+                    <div class="card text-center border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <img src="{{$feature->getFirstMediaUrl('feature', 'thumbnail') ?: asset('assets/images/service.png') }}" style="max-width: 100px; height: auto;" alt="">
+                            <h5 class="mt-3">{{$feature->name}}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
 
 
 
