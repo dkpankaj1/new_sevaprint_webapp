@@ -115,6 +115,16 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
+                        <label class="form-label">Editor API Key</label>
+                        <input type="text" class="form-control" placeholder="Enter Api Key"
+                            value="{{ old('editor_key', $generalSetting->editor_key) }}"
+                            name="editor_key">
+                        @error('editor_key')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
                         <label class="form-label">Copyright</label>
                         <input type="text" class="form-control" placeholder="Enter copyright text"
                             value="{{ old('copyright', $generalSetting->copyright) }}" name="copyright">

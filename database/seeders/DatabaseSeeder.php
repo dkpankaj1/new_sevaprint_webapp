@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
         $this->call(SettingsSeeder::class);
         $this->call(PaymentGatewaySeeder::class);
+        $this->call(FeatureSeeder::class);
+        $this->call(OperatorCodeSeeder::class);
+        $this->call(CircleCodeSeeder::class);
+        $this->call(AboutUsSeeder::class);
 
         User::create([
             'name' => "user",
@@ -27,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
             'remember_token' => Str::random(10),
+            'wallet' => 1000,
             'is_active' => 1
         ]);
 

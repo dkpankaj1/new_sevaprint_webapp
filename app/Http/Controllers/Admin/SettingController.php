@@ -32,7 +32,8 @@ class SettingController extends Controller
             "title" => "required|string|max:255",
             "description" => "nullable|string",
             "logo" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
-            "logo_main" => "nullable|image|mimes:jpeg,png,jpg|max:2048",
+            "logo_light"=> "nullable|image|mimes:jpeg,png,jpg|max:2048",
+            "logo_dark"=> "nullable|image|mimes:jpeg,png,jpg|max:2048",
             "favicon" => "nullable|image|mimes:png|max:512",
             "contact_email" => "nullable|email|max:255",
             "contact_phone" => "nullable|string|max:20",
@@ -43,40 +44,40 @@ class SettingController extends Controller
             $brandSetting = BrandSetting::first();
 
             if ($request->hasFile('logo')) {
-
                 ImageUploadHelper::deleteFile($brandSetting->logo);
-
                 $brandSetting->logo = ImageUploadHelper::uploadImage(
                     $request->file('logo'),
                     'static',
                     94,
                     99
                 );
-
             }
-            if ($request->hasFile('logo_main')) {
-
-                ImageUploadHelper::deleteFile($brandSetting->logo_main);
-
-                $brandSetting->logo_main = ImageUploadHelper::uploadImage(
-                    $request->file('logo_main'),
+            if ($request->hasFile('logo_light')) {
+                ImageUploadHelper::deleteFile($brandSetting->logo_light);
+                $brandSetting->logo_light = ImageUploadHelper::uploadImage(
+                    $request->file('logo_light'),
                     "static",
                     244,
                     68
                 );
-
+            }
+            if ($request->hasFile('logo_dark')) {
+                ImageUploadHelper::deleteFile($brandSetting->logo_dark);
+                $brandSetting->logo_dark = ImageUploadHelper::uploadImage(
+                    $request->file('logo_dark'),
+                    "static",
+                    244,
+                    68
+                );
             }
             if ($request->hasFile('favicon')) {
-
                 ImageUploadHelper::deleteFile($brandSetting->favicon);
-
                 $brandSetting->favicon = ImageUploadHelper::uploadImage(
                     $request->file('favicon'),
                     "static",
                     32,
                     32
                 );
-
             }
 
             $brandSetting->name = $request->name;
@@ -112,6 +113,7 @@ class SettingController extends Controller
             "maintenance_mode" => "required|boolean",
             "language" => "required|string|max:5|in:en,hi",
             "session_timeout" => "required|integer|min:1|max:1440",
+            "editor_key" => "nullable|string|max:255",
             "copyright" => "nullable|string|max:255",
             "developed_by" => "nullable|string|max:255",
         ]);
@@ -125,6 +127,7 @@ class SettingController extends Controller
             $generalSetting->maintenance_mode = $request->maintenance_mode;
             $generalSetting->language = $request->language;
             $generalSetting->session_timeout = $request->session_timeout;
+            $generalSetting->editor_key = $request->editor_key;
             $generalSetting->copyright = $request->copyright;
             $generalSetting->developed_by = $request->developed_by;
 

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->boolean('maintenance_mode')->default(false);
             $table->string('language')->default('en');
             $table->integer('session_timeout')->default(30);
+            $table->integer('editor_key')->nullable();
             $table->string('copyright')->nullable();
             $table->string('developed_by')->nullable();
             $table->timestamps();

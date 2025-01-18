@@ -7,11 +7,12 @@ use App\Notifications\PasswordResetNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -61,6 +62,15 @@ class User extends Authenticatable
     }
     public function getAvatarAttribute($value)
     {
-        return $value ? asset($value) : asset('avatar/user.jpg');
+        return $value ? asset($value) : "https://placehold.co/128x128";
+    }
+
+    public function otps()
+    {
+        return $this->hasMany(Otp::class);
+    }
+    public function PanCards()
+    {
+        $this->hasMany(PanCard::class);
     }
 }

@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('logo')->nullable();
-            $table->string('logo_main')->nullable();
+            $table->string('logo_light')->nullable();
+            $table->string('logo_dark')->nullable();
             $table->string('favicon')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('contact_phone')->nullable();

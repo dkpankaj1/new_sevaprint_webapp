@@ -5,9 +5,10 @@
 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'default title') | {{ $brandSetting->name ?? 'Laravel' }}</title>
+    <title>@yield('title', 'default title') - {{ $brandSetting->name ?? 'Laravel' }}</title>
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ $brandSetting->favicon ?? asset('backend/images/favicon.ico') }}">
@@ -42,21 +43,21 @@
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
 
-                    <div class="logo-box">
-                        <a href="index.html" class="logo logo-light">
+                    <div class="logo-box text-center">
+                        <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="{{ $brandSetting->logo_main ?? asset('backend/images/logo-sm.png') }}" alt="" height="22">
+                                <img src="{{ $brandSetting->logo_light }}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="{{ $brandSetting->logo_main ?? asset('backend/images/logo-light.png') }}" alt="" height="24">
+                                <img src="{{ $brandSetting->logo_light }}" alt="" height="24">
                             </span>
                         </a>
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="{{ $brandSetting->logo_main ?? asset('backend/images/logo-sm.png') }}" alt="" height="22">
+                                <img src="{{ $brandSetting->logo_dark }}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="{{ $brandSetting->logo_main ??  asset('backend/images/logo-dark.png') }}" alt="" height="24">
+                                <img src="{{ $brandSetting->logo_dark }}" alt="" height="24">
                             </span>
                         </a>
                     </div>
@@ -102,8 +103,9 @@
                             &copy;
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> {{ $generalSetting->copyright ?? '' }} - Made with <span class="mdi mdi-heart text-danger"></span> by <a
-                                href="#!" class="text-reset fw-semibold">{!! $generalSetting->developed_by ?? 'Laravel' !!}</a>
+                            </script> {{ $generalSetting->copyright ?? '' }} - Made with <span
+                                class="mdi mdi-heart text-danger"></span> by <a href="#!"
+                                class="text-reset fw-semibold">{!! $generalSetting->developed_by ?? 'Laravel' !!}</a>
                         </div>
                     </div>
                 </div>

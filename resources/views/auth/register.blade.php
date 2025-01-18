@@ -2,14 +2,14 @@
 
     @section('title', 'Register ')
 
-    <div class="row">
+    <div class="row my-3">
         <div class="col-md-6 mx-auto">
             <div class="mb-0 border-0">
                 <div class="p-0">
                     <div class="text-center">
                         <div class="mb-4">
                             <a href="index.html" class="auth-logo">
-                                <img src="{{asset('backend/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
+                                <img src="{{ $brandSetting->logo_dark }}" alt="logo-dark" class="mx-auto" height="28" />
                             </a>
                         </div>
 
@@ -39,6 +39,15 @@
                             <input class="form-control" name="email" type="email" value="{{ old('email') }}"
                                 placeholder="Enter your email">
                             @error('email')
+                                <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="email_address">Phone</label>
+                            <input class="form-control" name="phone" type="text" value="{{ old('phone') }}"
+                                placeholder="+91 9794xxx940">
+                            @error('phone')
                                 <div class="invalid-feedback text-danger d-block py-1">* {{ $message }}</div>
                             @enderror
                         </div>

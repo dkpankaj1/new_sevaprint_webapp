@@ -49,11 +49,13 @@ class ImageUploadHelper
     }
 
 
-    public static function deleteFile(string $filePath): bool
+    public static function deleteFile(?string $filePath): bool
     {
-        $fullPath = public_path($filePath);
-        if (File::exists($fullPath)) {
-            return File::delete($fullPath);
+        if ($filePath != null) {
+            $fullPath = public_path($filePath);
+            if (File::exists($fullPath)) {
+                return File::delete($fullPath);
+            }
         }
         return false;
     }

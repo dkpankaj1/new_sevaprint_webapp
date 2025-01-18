@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\GeneralSetting;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -15,31 +16,16 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+    protected $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     public function index(Request $request)
     {
-        $generalSetting = GeneralSetting::first();
-
         if ($request->expectsJson()) {
-            $userQuery = User::query()->orderBy('id', 'desc');
-            return DataTables::eloquent($userQuery)
-                ->addIndexColumn()
-                ->addColumn('status', fn($user) => $user->is_active == 1
-                    ? view('components.badges', ['type' => 'success', 'text' => 'active'])
-                    : view('components.badges', ['type' => 'danger', 'text' => 'in-active']))
-                ->addColumn('wallet', function ($user) use ($generalSetting) {
-                    $currencySymbol = $generalSetting->currency->symbol ?? '';
-                    $walletAmount = number_format($user->wallet, 2); 
-                    return "{$currencySymbol} {$walletAmount}";
-                })
-                ->addColumn('avatar', fn($user) => view('components.user-avatar', ['src' => $user->avatar]))
-                ->addColumn('action', function ($user) {
-                    return view('components.show-btn', ['url' => route('admin.users.show', $user->id)]) .
-                        view('components.edit-btn', ['url' => route('admin.users.edit', $user->id)]) .
-                        view('components.delete-btn', ['url' => route('admin.users.destroy', $user->id)]);
-                })
-                ->make(true);
+            return $this->userService->getDataTableData();
         }
-
         return view('admin.users.index');
     }
 
@@ -62,7 +48,7 @@ class UserController extends Controller
             $data['password'] = Hash::make($data['password']);
             $data['wallet'] = 0;
 
-            User::create($data);
+            $this->userService->create($data);
 
             return redirect()->route('admin.users.index')->with([
                 'message' => 'User created successfully.',

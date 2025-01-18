@@ -18,6 +18,6 @@ class Admin extends Authenticatable
     ];
     public function getAvatarAttribute($value)
     {
-        return $value ? asset($value) : asset('avatar/user.jpg');
+        return $value ? asset($value) : 'https://placehold.co/128x128';
     }
 }

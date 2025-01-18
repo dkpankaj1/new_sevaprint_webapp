@@ -20,9 +20,6 @@ class SettingsSeeder extends Seeder
             "name" => "Kadso",
             "title" => "Kadso Title",
             "description" => "Kadso description",
-            "logo" => "",
-            "logo_main" => "",
-            "favicon" => "",
             "contact_email" => "info@kadso.com",
             "contact_phone" => "+1234567890",
         ]);
@@ -30,7 +27,7 @@ class SettingsSeeder extends Seeder
         // Seed GeneralSetting
         GeneralSetting::create([
             "date_format" => "Y-m-d",
-            "default_currency" => 1,
+            "default_currency" => 2,
             "timezone" => "UTC",
             "maintenance_mode" => false,
             "language" => "en",

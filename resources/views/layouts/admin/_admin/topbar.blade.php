@@ -31,7 +31,7 @@
 
                         <div class="noti-scroll" data-simplebar>
 
-                            <!-- item-->
+                            {{-- <!-- item-->
                             <a href="javascript:void(0);"
                                 class="dropdown-item notify-item text-muted link-primary active">
                                 <div class="notify-icon">
@@ -153,7 +153,7 @@
                                             class="text-reset">@Patryk</span> Please make sure that you're....
                                     </p>
                                 </div>
-                            </a>
+                            </a> --}}
                         </div>
 
                         <!-- All-->

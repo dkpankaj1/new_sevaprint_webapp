@@ -3,9 +3,11 @@
 /public/build
 /public/template
 /public/dist
+/public/media
 /public/web-template
 /public/hot
 /public/storage
+/public/upload
 /storage/*.key
 /storage/pail
 /vendor

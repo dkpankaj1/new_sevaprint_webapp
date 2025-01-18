@@ -5,13 +5,13 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="{{ $brandSetting->description ?? '' }}">
+    <meta name="author" content="cortex it solution">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <title>Welcome | {{ config('app.name', 'Laravel') }}</title>
+    <title>Welcome | {{ $brandSetting->name ?? '' }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -53,8 +53,8 @@ https://templatemo.com/tm-565-onix-digital
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png">
+                        <a href="{{ route('home') }}" class="logo">
+                            <img src="{{ $brandSetting->logo }}">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -82,20 +82,16 @@ https://templatemo.com/tm-565-onix-digital
 
     {{ $slot }}
 
-    <div class="footer-dec">
-        <img src="{{ asset('assets/images/footer-dec.png') }}" alt="">
-    </div>
 
-    <footer>
+    <footer class="bg-dark mt-5 pt-4 " style="border-top-left-radius: 20px;border-top-right-radius: 20px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="about footer-item">
                         <div class="logo">
-                            <a href="#"><img src="{{ asset('assets/images/logo.png') }}"
-                                    alt="Onix Digital TemplateMo"></a>
+                            <a href="#"><img src="{{ $brandSetting->logo }}" alt="logo"></a>
                         </div>
-                        <a href="#">info@company.com</a>
+                        <a href="#">{{ $brandSetting->contact_email }}</a>
                         <ul>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -107,24 +103,14 @@ https://templatemo.com/tm-565-onix-digital
                 <div class="col-lg-3">
 
                 </div>
-                <div class="col-lg-3">
-
-                </div>
-                <div class="col-lg-3">
+                <div class="col-lg-6">
                     <div class="subscribe-newsletters footer-item">
-                        <h4>Subscribe Newsletters</h4>
-                        <p>Get our latest news and ideas to your inbox</p>
-                        <form action="#" method="get">
-                            <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*"
-                                placeholder="Your Email" required="">
-                            <button type="submit" id="form-submit" class="main-button "><i
-                                    class="fa fa-paper-plane-o"></i></button>
-                        </form>
+                        <p style="text-align:justify;">{{ $brandSetting->description }}</p>
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright">
-                        <p>Copyright © 2021 Onix Digital Co., Ltd. All Rights Reserved.
+                        <p>Copyright © 2021 {{ $brandSetting->name }}. All Rights Reserved.
                             <br>
                             Designed by <a rel="nofollow" href="#" title="free CSS templates">Cortex It
                                 solution</a>

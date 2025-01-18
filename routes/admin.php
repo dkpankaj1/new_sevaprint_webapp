@@ -1,13 +1,22 @@
 <?php
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\LogOutController;
 use App\Http\Controllers\Admin\BalanceTransferController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessagesController;
+use App\Http\Controllers\Admin\MobileRechargeController;
+use App\Http\Controllers\Admin\OurServiceController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ServerManagerController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TextSliderController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\WebsiteController;
+use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Middleware\AdminAccessAuth;
 use App\Http\Middleware\AdminAccessGuest;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +60,31 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('payment-getaway', [SettingController::class, 'updatePaymentGetawaySetting']);
 
         });
+
+        Route::group(['prefix' => 'website', 'as' => 'website.'], function () {
+
+            Route::get('/', [WebsiteSettingController::class, 'index'])->name('index');
+            Route::post('/', [WebsiteSettingController::class, 'updateHomepage']);
+            Route::resource('text-slider', TextSliderController::class);
+
+            Route::get('about-us', [AboutUsController::class, 'edit'])->name('about-us.edit');
+            Route::post('about-us', [AboutUsController::class, 'update'])->name('about-us.update');
+
+            Route::resource('our-services', OurServiceController::class);
+            Route::resource('videos', VideoController::class);
+
+        });
+
+        Route::get('feature', [FeatureController::class, 'index'])->name('feature.index');
+        Route::get('feature/{feature}', action: [FeatureController::class, 'show'])->name('feature.show');
+        Route::get('feature/{feature}/edit', [FeatureController::class, 'edit'])->name('feature.edit');
+        Route::post('feature/{feature}/edit', [FeatureController::class, 'update'])->name('feature.update');
+
+        Route::get('messages', [MessagesController::class, 'index'])->name('messages.index');
+        Route::get('messages/{messages}', [MessagesController::class, 'show'])->name('messages.show');
+
+        Route::get('/mobile-recharge', [MobileRechargeController::class, 'index'])->name('mobile-recharge.index');
+        Route::get('/mobile-recharge/{mobileRecharge}', [MobileRechargeController::class, 'show'])->name('mobile-recharge.show');
 
         Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');

@@ -17,6 +17,6 @@ class RazorPayConfiguration extends Model
     ];
     public function getLogoAttribute($value)
     {
-        return $value ? asset($value) : "";
+        return $value ? asset($value) : "https://placehold.co/100x100";
     }
 }

@@ -40,7 +40,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0">
-                                    $17.21
+                                    {{$generalSetting->currency->symbol}} 17.21
                                 </h2>
                             </div>
                             <div class="col-4 text-end">
@@ -67,7 +67,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0">
-                                    $1875.54
+                                    {{$generalSetting->currency->symbol}} 1875.54
                                 </h2>
                             </div>
                             <div class="col-4 text-end">
@@ -94,7 +94,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0">
-                                    $784.62
+                                    {{$generalSetting->currency->symbol}} 784.62
                                 </h2>
                             </div>
                             <div class="col-4 text-end">

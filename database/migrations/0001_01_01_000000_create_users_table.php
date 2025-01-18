@@ -24,6 +24,9 @@ return new class extends Migration {
             $table->string('postal_code')->nullable();
             $table->string('avatar')->nullable();
             $table->double('wallet')->default(0);
+            $table->string('api_key')->nullable()->unique();
+            $table->string('api_secret')->nullable();
+            $table->string('type')->default(\App\Enums\UserEnum::TYPE_WEB);
             $table->tinyInteger('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();

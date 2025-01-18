@@ -13,8 +13,8 @@
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
-                        <img src="{{ asset('backend/images/flags/us.jpg') }}" alt="user-image"
-                            class="me-0 me-sm-1" height="18">
+                        <img src="{{ asset('backend/images/flags/us.jpg') }}" alt="user-image" class="me-0 me-sm-1"
+                            height="18">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
 
@@ -56,7 +56,7 @@
 
                         <div class="noti-scroll" data-simplebar>
 
-                            <!-- item-->
+                            {{-- <!-- item-->
                             <a href="javascript:void(0);"
                                 class="dropdown-item notify-item text-muted link-primary active">
                                 <div class="notify-icon">
@@ -178,7 +178,7 @@
                                             class="text-reset">@Patryk</span> Please make sure that you're....
                                     </p>
                                 </div>
-                            </a>
+                            </a> --}}
                         </div>
 
                         <!-- All-->
@@ -209,6 +209,11 @@
                         <a href="{{ route('account.profile.index') }}" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                             <span>{{ __('common.topbar.account') }}</span>
+                        </a>
+
+                        <a href="{{ route('wallet.index') }}" class="dropdown-item notify-item">
+                            <i class="mdi mdi-wallet-outline fs-16 align-middle"></i>
+                            <span>Wallet</span>
                         </a>
 
                         <!-- item-->

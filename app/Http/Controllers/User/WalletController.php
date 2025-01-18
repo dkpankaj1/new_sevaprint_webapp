@@ -29,7 +29,7 @@ class WalletController extends Controller
     {
         if ($request->expectsJson()) {
             $transactionsQuery = Transaction::query()->where('user_id', $request->user()->id)
-                ->where('status', TransactionEnum::STATUS_COMPLETE)
+                ->whereNot('status', TransactionEnum::STATUS_PENDING)
                 ->orderBy('id', 'desc');
 
             return DataTables::eloquent($transactionsQuery)

@@ -11,7 +11,8 @@ class BrandSetting extends Model
         "title",
         "description",
         "logo",
-        "logo_main",
+        "logo_light",
+        "logo_dark",
         "favicon",
         "contact_email",
         "contact_phone",
@@ -19,16 +20,19 @@ class BrandSetting extends Model
 
     public function getLogoAttribute($value)
     {
-        return $value ? asset($value) : asset('avatar/user.jpg');
+        return $value ? asset($value) : 'https://placehold.co/94x99';
     }
 
-    public function getLogoMainAttribute($value)
+    public function getLogoLightAttribute($value)
     {
-        return $value ? asset($value) : asset('avatar/user.jpg');
+        return $value ? asset($value) : 'https://placehold.co/244x68';
     }
-
+    public function getLogoDarkAttribute($value)
+    {
+        return $value ? asset($value) : 'https://placehold.co/244x68';
+    }
     public function getFaviconAttribute($value)
     {
-        return $value ? asset($value) : asset('avatar/user.jpg');
+        return $value ? asset($value) : 'https://placehold.co/32x32';
     }
 }

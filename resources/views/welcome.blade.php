@@ -1,4 +1,12 @@
 <x-web-layout>
+
+
+    <style>
+        .main-banner::before {
+            background-image: url({{ $homepage->image }});
+        }
+    </style>
+
     <div class="main-banner" id="top">
         <div class="container">
             <div class="row">
@@ -6,25 +14,13 @@
                     <div class="row">
                         <div class="col-lg-6 align-self-center">
                             <div class="owl-carousel owl-banner">
-                                <div class="item header-text">
-                                    <h6>Welcome to Onix Digital</h6>
-                                    <h2>Build <em>your website</em> the best in <span>SEO</span>?</h2>
-                                    <p>This is a professional looking HTML Bootstrap 5 website template brought to you
-                                        by TemplateMo website.</p>
-                                </div>
-                                <div class="item header-text">
-                                    <h6>Online Marketing</h6>
-                                    <h2>Get the <em>best ideas</em> for <span>your website</span></h2>
-                                    <p>You are NOT allowed to redistribute this template ZIP file on any Free CSS
-                                        collection websites. Contact us for more info. Thank you.</p>
-                                </div>
-                                <div class="item header-text">
-                                    <h6>Video Tutorials</h6>
-                                    <h2>Watch <em>our videos</em> for your <span>projects</span></h2>
-                                    <p>Please <a rel="nofollow" href="https://www.paypal.me/templatemo"
-                                            target="_blank">support us</a> a little via PayPal if this digital marketing
-                                        HTML template is useful for you. Thank you.</p>
-                                </div>
+                                @foreach ($sliders as $slides)
+                                    <div class="item header-text">
+                                        <h6>{{ $slides->sub_title }}</h6>
+                                        <h2>{{ $slides->title }}</h2>
+                                        {!! $slides->description !!}
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -52,78 +48,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="owl-carousel owl-services">
-                        <div class="item">
-                            <h4>Learn More about our Guidelines</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-01.png') }}"
-                                    alt=""></div>
-                            <p>Feel free to use this template for your business</p>
-                        </div>
-                        <div class="item">
-                            <h4>Develop The Best Strategy for Business</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-02.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>UI / UX Design and Development</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-03.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>Discover &amp; Explore our SEO Tips</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-04.png') }}"
-                                    alt=""></div>
-                            <p>Feel free to use this template for your business</p>
-                        </div>
-                        <div class="item">
-                            <h4>Optimizing your websites for Speed</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-01.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>See The Strategy In The Market</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-02.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>Best Content Ideas for your pages</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-03.png') }}"
-                                    alt=""></div>
-                            <p>Feel free to use this template for your business</p>
-                        </div>
-                        <div class="item">
-                            <h4>Optimizing Speed for your web pages</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-04.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>Accessibility for mobile viewing</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-01.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>Content Ideas for your next project</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-02.png') }}"
-                                    alt=""></div>
-                            <p>Feel free to use this template for your business</p>
-                        </div>
-                        <div class="item">
-                            <h4>UI &amp; UX Design &amp; Development</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-03.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
-                        <div class="item">
-                            <h4>Discover the digital marketing trend</h4>
-                            <div class="icon"><img src="{{ asset('assets/images/service-icon-04.png') }}"
-                                    alt=""></div>
-                            <p>Get to know more about the topic in details</p>
-                        </div>
+                        @foreach ($services as $service)
+                            <div class="item">
+                                <h4>{{ $service->title }}</h4>
+                                <div class="icon"><img src="{{ $service->icon }}" alt=""></div>
+                                <p>{{ $service->description }}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -135,55 +66,53 @@
             <div class="row">
                 <div class="col-lg-6 align-self-center">
                     <div class="left-image">
-                        <img src="{{ asset('assets/images/about-left-image.png') }}"
-                            alt="Two Girls working together">
+                        <img src="{{$aboutUs->image}}" alt="about_us">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="section-heading">
-                        <h2>Grow your website with our <em>SEO Tools</em> &amp; <span>Project</span> Management</h2>
-                        <p>You can browse free HTML templates on Too CSS website. Visit the website and explore latest
-                            website templates for your projects.</p>
+                        <h2>{{$aboutUs->title}}</h2>
+                        <p>{{$aboutUs->description}}</p>
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="fact-item">
                                     <div class="count-area-content">
                                         <div class="icon">
-                                            <img src="{{ asset('assets/images/service-icon-01.png') }}"
-                                                alt="">
+                                            <img src="{{$aboutUs->achievements_one_icon}}" alt="">
                                         </div>
-                                        <div class="count-digit">320</div>
-                                        <div class="count-title">SEO Projects</div>
-                                        <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                        <div class="count-digit">{{$aboutUs->achievements_one_count}}</div>
+                                        <div class="count-title">{{$aboutUs->achievements_one_title}}</div>
+                                        <p>{{$aboutUs->achievements_one_description}}</p>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-4">
                                 <div class="fact-item">
                                     <div class="count-area-content">
                                         <div class="icon">
-                                            <img src="{{ asset('assets/images/service-icon-02.png') }}"
-                                                alt="">
+                                            <img src="{{$aboutUs->achievements_two_icon}}" alt="">
                                         </div>
-                                        <div class="count-digit">640</div>
-                                        <div class="count-title">Websites</div>
-                                        <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                        <div class="count-digit">{{$aboutUs->achievements_two_count}}</div>
+                                        <div class="count-title">{{$aboutUs->achievements_two_title}}</div>
+                                        <p>{{$aboutUs->achievements_two_description}}</p>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-4">
                                 <div class="fact-item">
                                     <div class="count-area-content">
                                         <div class="icon">
-                                            <img src="{{ asset('assets/images/service-icon-03.png') }}"
-                                                alt="">
+                                            <img src="{{$aboutUs->achievements_three_icon}}" alt="">
                                         </div>
-                                        <div class="count-digit">120</div>
-                                        <div class="count-title">Satisfied Clients</div>
-                                        <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                        <div class="count-digit">{{$aboutUs->achievements_three_count}}</div>
+                                        <div class="count-title">{{$aboutUs->achievements_three_title}}</div>
+                                        <p>{{$aboutUs->achievements_three_description}}</p>
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -207,118 +136,52 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <ul class="nacc">
-                                        <li class="active">
-                                            <div>
-                                                <div class="thumb">
-                                                    <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/JynGuQx4a1Y"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                    <div class="overlay-effect">
-                                                        <a href="#">
-                                                            <h4>Project One</h4>
-                                                        </a>
-                                                        <span>SEO &amp; Marketing</span>
+
+                                        @foreach ($videos as $key => $video)
+                                            <li class="{{ $key == 0 ? 'active' : '' }}">
+                                                <div>
+                                                    <div class="thumb">
+                                                        @php
+                                                            preg_match(
+                                                                '/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/',
+                                                                $video->url,
+                                                                $matches,
+                                                            );
+                                                        @endphp
+                                                        <iframe width="100%" height="auto"
+                                                            src="https://www.youtube.com/embed/{{ $matches[1] }}"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen></iframe>
+                                                        <div class="overlay-effect">
+                                                            <a href="#">
+                                                                <h4>Project One</h4>
+                                                            </a>
+                                                            <span>SEO &amp; Marketing</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <div class="thumb">
-                                                    <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/RdJBSFpcO4M"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                    <div class="overlay-effect">
-                                                        <a href="#">
-                                                            <h4>Second Project</h4>
-                                                        </a>
-                                                        <span>Advertising &amp; Marketing</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <div class="thumb">
-                                                    <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/ZlfAjbQiL78"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                    <div class="overlay-effect">
-                                                        <a href="#">
-                                                            <h4>Project Three</h4>
-                                                        </a>
-                                                        <span>Digital &amp; Marketing</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <div class="thumb">
-                                                    <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/mx1WseE7-0Y"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                    <div class="overlay-effect">
-                                                        <a href="#">
-                                                            <h4>Fourth Project</h4>
-                                                        </a>
-                                                        <span>SEO &amp; Advertising</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="menu">
-                                        <div class="active">
-                                            <div class="thumb">
-                                                <img src="{{ asset('assets/images/video-thumb-01.png') }}"
-                                                    alt="">
-                                                <div class="inner-content">
-                                                    <h4>Project One</h4>
-                                                    <span>SEO &amp; Marketing</span>
+
+                                        @foreach ($videos as $key => $video)
+                                            <div class="{{ $key == 0 ? 'active' : '' }}">
+                                                <div class="thumb">
+                                                    <img src="{{ asset('assets/images/video-thumb-01.png') }}"
+                                                        alt="">
+                                                    <div class="inner-content">
+                                                        <h4>{{ $video->title }}</h4>
+                                                        <span>{{ $video->sub_title }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div class="thumb">
-                                                <img src="{{ asset('assets/images/video-thumb-02.png') }}"
-                                                    alt="">
-                                                <div class="inner-content">
-                                                    <h4>Second Project</h4>
-                                                    <span>Advertising &amp; Marketing</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="thumb">
-                                                <img src="{{ asset('assets/images/video-thumb-03.png') }}"
-                                                    alt="Marketing">
-                                                <div class="inner-content">
-                                                    <h4>Project Three</h4>
-                                                    <span>Digital &amp; Marketing</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="thumb">
-                                                <img src="{{ asset('assets/images/video-thumb-04.png') }}"
-                                                    alt="SEO Work">
-                                                <div class="inner-content">
-                                                    <h4>Fourth Project</h4>
-                                                    <span>SEO &amp; Advertising</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -331,50 +194,58 @@
 
     <div id="contact" class="contact-us section">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-7">
                     <div class="section-heading">
-                        <h2>Feel free to <em>Contact</em> us via the <span>HTML form</span></h2>
+                        <h2>Feel free to <em>Contact</em> us</h2>
                         <div class="info">
                             <span><i class="fa fa-phone"></i> <a
-                                    href="#">010-020-0340<br>090-080-0760</a></span>
+                                    href="#">{{$brandSetting->contact_phone}}</a></span>
                             <span><i class="fa fa-envelope"></i> <a
-                                    href="#">info@company.com<br>mail@company.com</a></span>
+                                    href="#">{{$brandSetting->contact_email}}</a></span>
                         </div>
-                        <div class="info">
-                            <span><i class="fa fa-phone"></i> <a
-                                    href="#">010-020-0340<br>090-080-0760</a></span>
-                            <span><i class="fa fa-whatsapp"></i> <a
-                                    href="#">info@company.com<br>mail@company.com</a></span>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-5 align-self-center">
-                    <form id="contact" action="" method="get">
+                    <form id="contact" action="{{route('home')}}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <input type="name" name="name" id="name" placeholder="Name"
+                                    <input type="name" name="name" id="name" placeholder="Name" value="{{old('name')}}"
                                         autocomplete="on" required>
                                 </fieldset>
+                                @error('name')
+                                    <span class="invalid-feedback text-danger d-block">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <input type="surname" name="surname" id="surname" placeholder="Surname"
+                                    <input type="text" name="phone" id="phone" placeholder="Enter phone number" value="{{old('phone')}}"
                                         autocomplete="on" required>
                                 </fieldset>
+                                @error('phone')
+                                    <span class="invalid-feedback text-danger d-block">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*"
+                                    <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" value="{{old('email')}}"
                                         placeholder="Your Email" required="">
                                 </fieldset>
+                                @error('email')
+                                    <span class="invalid-feedback text-danger d-block">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <input type="text" name="website" id="website"
-                                        placeholder="Your Website URL" required="">
+                                    <input type="text" name="message" id="message" value="{{old('message')}}"
+                                        placeholder="Your message" required="">
                                 </fieldset>
+                                @error('message')
+                                    <span class="invalid-feedback text-danger d-block">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>

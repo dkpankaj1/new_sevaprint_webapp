@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\ServiceChargeCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +22,6 @@ class ProfileController extends Controller
     {
         $user = User::find($request->user()->id);
         return view('account.profile', ['user' => $user]);
-
     }
     public function profileUpdate(Request $request)
     {
@@ -60,7 +60,6 @@ class ProfileController extends Controller
             return redirect()->route('account.profile.index')->with($notification);
         }
     }
-
     public function password()
     {
         return view('account.password');
@@ -85,5 +84,11 @@ class ProfileController extends Controller
             return redirect()->route('account.profile.index')->with($notification);
         }
 
+    }
+
+    public function charges(){
+
+        
+        // return view('account.charges',['charges' => $charges]);
     }
 }
