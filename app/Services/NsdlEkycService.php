@@ -19,9 +19,9 @@ class NsdlEkycService implements NSDLServiceInterface
     public function __construct()
     {
         $this->baseUrl = 'https://instantpanmitra.com';
-        $this->clientId = env('NSDL_CLIENT_ID', '');
-        $this->clientSecret = env('NSDL_CLIENT_SECRET', '');
-        $this->encryptionKey = env('NSDL_ENCRYPTION_KEY', '');
+        $this->clientId = config('credentials.panmitra.client_id');
+        $this->clientSecret = config('credentials.panmitra.client_secret');
+        $this->encryptionKey = config('credentials.panmitra.encryption_key');
         $this->client = new Client();
     }
 

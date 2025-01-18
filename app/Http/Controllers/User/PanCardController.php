@@ -67,7 +67,9 @@ class PanCardController extends Controller
                 })
 
                 ->addColumn('more', function ($nsdlPan) {
-                    return view('components.pan-process', ['panCard' => $nsdlPan]);
+                    return in_array($nsdlPan->status,[FormStatus::STATUS_PENDING,FormStatus::STATUS_PROCESSING])
+                    ? view('components.pan-process', ['panCard' => $nsdlPan,'processed' => false])
+                    : view('components.pan-process', ['panCard' => $nsdlPan,'processed' => true]);
                 })
 
 
@@ -257,5 +259,10 @@ class PanCardController extends Controller
                 'status' => 'error',
             ]);
         }
+    }
+
+    public function print(PanCard $panCard){
+        Gate::authorize('view', $panCard);
+            return view('nsdl-pan.print',['data' => $panCard]);
     }
 }

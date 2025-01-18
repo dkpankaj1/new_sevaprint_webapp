@@ -3,7 +3,20 @@
     "ignorePaths": [],
     "dictionaryDefinitions": [],
     "dictionaries": [],
-    "words": [],
+    "words": [
+        "apimember",
+        "Apimember",
+        "Barryvdh",
+        "Ekyc",
+        "ESIGN",
+        "nsdk",
+        "nsdl",
+        "Nsdl",
+        "pandata",
+        "panmitra",
+        "txnid",
+        "Yajra"
+    ],
     "ignoreWords": [],
     "import": []
 }

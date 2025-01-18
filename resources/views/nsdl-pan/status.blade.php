@@ -54,18 +54,6 @@
                                             <td>{{ $txnStatus['data']['p_order_id'] ?? __('N/A') }}</td>
                                         </tr>
                                         <tr>
-                                            <th>{{ __('Transaction Amount') }}</th>
-                                            <td>{{ $txnStatus['data']['txn_amount'] ?? __('N/A') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>{{ __('Opening Balance') }}</th>
-                                            <td>{{ $txnStatus['data']['opening_bal'] ?? __('N/A') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>{{ __('Closing Balance') }}</th>
-                                            <td>{{ $txnStatus['data']['closing_bal'] ?? __('N/A') }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>{{ __('Transaction Description') }}</th>
                                             <td>{{ $txnStatus['data']['txn_description'] ?? __('N/A') }}</td>
                                         </tr>

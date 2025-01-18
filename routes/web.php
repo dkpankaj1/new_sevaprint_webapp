@@ -71,6 +71,8 @@ Route::group(['middleware' => LocaleMiddleware::class], function () {
         if (NsdlPanFeature::isEnabled()) {
             Route::group(['prefix' => 'nsdl', 'as' => 'nsdl.'], function () {
 
+                Route::post('pan-card/print/{panCard}',[PanCardController::class,'print'])->name('pan-card.print');
+                
                 Route::resource('pan-card', PanCardController::class)->parameters(['pan-card' => 'panCard']);
                 
                 Route::get('transaction-status',[NsdlController::class,'tnxStatus'])->name('transaction-status');

@@ -17,8 +17,8 @@ class RoboticExchangeService
     {
 
         $this->apiUrl = 'https://api.roboticexchange.in/Robotics/webservice';
-        $this->apimemberId = env('ROBOTIC_API_MEMBER_ID', '');
-        $this->apiPassword = env('ROBOTIC_API_PASSWORD', '');
+        $this->apimemberId = config('credentials.robotic.member_id');
+        $this->apiPassword = config('credentials.robotic.password');
         $this->client = new Client();
     }
 

@@ -95,6 +95,11 @@
                         <button type="submit" class="btn btn-sm btn-success">Process</button>
                     </form>
 
+                    <form action="{{ route('nsdl.pan-card.print', $panCard) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-secondary">Print</button>
+                    </form>
+
                     <a href="{{ route('nsdl.pan-card.edit', $panCard) }}" class="btn btn-sm btn-info">Edit</a>
                 </div>
             </div>

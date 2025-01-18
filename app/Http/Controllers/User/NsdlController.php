@@ -101,7 +101,7 @@ class NsdlController extends Controller
         if (
             !$panCard ||
             $panCard->user_id !== $userId ||
-            in_array($panCard->status, [FormStatus::STATUS_COMPLETE, FormStatus::STATUS_REJECT])
+            !in_array($panCard->status, [FormStatus::STATUS_PENDING, FormStatus::STATUS_PROCESSING])
         ) {
             throw new \Exception('Unauthorized access or invalid PanCard status.');
         }
