@@ -14,10 +14,10 @@ use App\Repositories\Contracts\TransactionRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\BalanceService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PanCardController extends Controller
 {
@@ -67,9 +67,9 @@ class PanCardController extends Controller
                 })
 
                 ->addColumn('more', function ($nsdlPan) {
-                    return in_array($nsdlPan->status,[FormStatus::STATUS_PENDING,FormStatus::STATUS_PROCESSING])
-                    ? view('components.pan-process', ['panCard' => $nsdlPan,'processed' => false])
-                    : view('components.pan-process', ['panCard' => $nsdlPan,'processed' => true]);
+                    return in_array($nsdlPan->status, [FormStatus::STATUS_PENDING, FormStatus::STATUS_PROCESSING])
+                        ? view('components.pan-process', ['panCard' => $nsdlPan, 'processed' => false])
+                        : view('components.pan-process', ['panCard' => $nsdlPan, 'processed' => true]);
                 })
 
 
@@ -103,6 +103,8 @@ class PanCardController extends Controller
         ]);
 
         $charges = (float) NsdlPanFeature::getFeatureCharges();
+        $commission = (float) NsdlPanFeature::getFeatureCommission();
+        $finalCharges =  $charges -  $commission;
 
         if (!$this->balanceService->hasSufficientBalance($charges)) {
             return $this->balanceService->handleLowBalanceResponse();
@@ -123,7 +125,7 @@ class PanCardController extends Controller
                 'email' => $request->email,
                 'pan_type' => $request->pan_type,
                 'consent' => $request->consent ? "Y" : "N",
-                'transaction_fee' => $charges,
+                'transaction_fee' => $finalCharges,
                 'status' => FormStatus::STATUS_PENDING,
             ]);
 
@@ -134,10 +136,10 @@ class PanCardController extends Controller
                 "vendor" => TransactionEnum::VENDOR_INTERNAL,
                 "transaction_id" => TransactionHelper::generateTransactionId(),
                 "opening_balance" => $request->user()->wallet,
-                "amount" => $charges,
+                "amount" => $finalCharges,
                 "fee" => 0,
                 "tax" => 0,
-                "closing_balance" => $request->user()->wallet - $charges,
+                "closing_balance" => $request->user()->wallet - $finalCharges,
                 "currency_id" => GeneralSetting::value('default_currency'),
                 "payment_method" => TransactionEnum::METHOD_WALLET,
                 "metadata" => [
@@ -153,17 +155,15 @@ class PanCardController extends Controller
 
             if ($panCard) {
                 $this->transactionRepository->create($transactionData);
-                $this->userRepository->decrementWallet($request->user()->id, $charges);
+                $this->userRepository->decrementWallet($request->user()->id, $finalCharges);
             }
 
             return redirect()->route('nsdl.pan-card.index')
                 ->with(['message' => 'Application processed success.', 'type' => 'success']);
-
         } catch (\Exception $e) {
             Log::error(json_encode($e->getMessage()));
             return redirect()->back()->with(['message' => 'application failed to process.', 'type' => "error"]);
         }
-
     }
 
     public function show(PanCard $panCard)
@@ -187,8 +187,6 @@ class PanCardController extends Controller
             Log::error($e->getMessage(), ['stack' => $e->getTrace()]);
             return redirect()->back()->with(['message' => $e->getMessage(), 'type' => 'error']);
         }
-
-
     }
 
     public function update(Request $request, PanCard $panCard)
@@ -245,13 +243,12 @@ class PanCardController extends Controller
                 throw new \Exception('The PanCard cannot be deleted as its status is not pending.');
             }
 
-            // $panCard->delete();
+            $panCard->delete();
 
             return response()->json([
                 'message' => 'delete success',
                 'status' => 'success',
             ]);
-
         } catch (\Exception $e) {
             Log::error(json_encode($e->getMessage()));
             return response()->json([
@@ -261,9 +258,11 @@ class PanCardController extends Controller
         }
     }
 
-    public function print(PanCard $panCard){
+    public function print(PanCard $panCard)
+    {
         Gate::authorize('view', $panCard);
-        
-        return view('nsdl-pan.print',['data' => $panCard]);
+        return Pdf::loadView('nsdl-pan.print', ['panCard' => $panCard])
+            ->setPaper('a4')
+            ->download('recept.pdf');
     }
 }

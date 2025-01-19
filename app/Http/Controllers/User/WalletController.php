@@ -14,6 +14,8 @@ use App\Models\Transaction;
 ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -62,10 +64,19 @@ class WalletController extends Controller
                         'text' => ucfirst($transaction->status),
                     ]);
                 })
+
+                ->addColumn('action', function ($transaction) {
+                    return view('components.show-btn', ['url' => route('wallet.show', $transaction->id)]);
+                })
                 ->make(true);
         }
 
         return view('wallet.index');
+    }
+
+    public function show(Transaction $transaction){
+        Gate::authorize('view', $transaction);
+        return view('wallet.show',['transaction' => $transaction]);
     }
 
     public function recharge()
@@ -168,8 +179,8 @@ class WalletController extends Controller
 
         $checksum = NicePeCheckSum::generateSignature($transactionData, $secretKey);
 
-        \Log::info(json_encode(['checksum' => $checksum]));
-        \Log::info(json_encode($transactionData));
+        Log::info(json_encode(['checksum' => $checksum]));
+        Log::info(json_encode($transactionData));
 
         return view('payment.nicepe', ['transactionData' => $transactionData, 'checksum' => $checksum, 'baseUrl' => $base_url]);
     }

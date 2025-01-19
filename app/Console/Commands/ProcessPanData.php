@@ -57,11 +57,14 @@ class ProcessPanData extends Command
 
                 $responseData = $response['data'];
 
-                PanCard::find($data->id)->update([
+                $panCard = PanCard::find($data->id)->update([
                     'status' => $transactionStatus[$responseData['txn_status']],
                     'message'=> $responseData['txn_description']
                 ]);
-                
+
+                if($panCard->status !== FormStatus::STATUS_COMPLETE){
+                    $panCard->user()->increment('wallet', $panCard->transaction_fee);
+                }
             }
 
             Log::info(json_encode($response));

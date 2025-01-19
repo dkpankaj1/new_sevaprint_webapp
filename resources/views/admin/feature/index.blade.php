@@ -62,6 +62,16 @@
                             title: 'Name'
                         },
                         {
+                            data: 'fee',
+                            name: 'fee',
+                            title: 'Fee'
+                        },
+                        {
+                            data: 'commission',
+                            name: 'commission',
+                            title: 'Commission'
+                        },
+                        {
                             data: 'status',
                             name: 'status',
                             title: 'Status',

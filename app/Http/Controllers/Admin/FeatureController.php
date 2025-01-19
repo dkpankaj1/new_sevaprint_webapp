@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Services\Contracts\FeatureServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class FeatureController extends Controller
 {
@@ -52,15 +54,15 @@ class FeatureController extends Controller
             "description" => ['nullable', 'string'],
             "thumbnail" => ['nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             "fee" => ['required', 'numeric', 'min:0'],
+            "commission" => ['required', 'numeric', 'min:0'],
+            "commission_type" => ['required', Rule::in([0,1])],
             "enable" => ['required', 'boolean'],
         ]);
 
         try {
 
             if ($request->has('thumbnail')) {
-                $feature = $this->featureService->findFeature($id);
-                $feature->clearMediaCollection('feature');
-                $feature->addMediaFromRequest('thumbnail')->toMediaCollection('feature');
+                $this->featureService->updateFeatureIcon($id,$request->file('thumbnail'));
             }
 
             $this->featureService->updateFeature($id, $validated);           

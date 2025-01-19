@@ -16,6 +16,11 @@ Breadcrumbs::for('wallet.index', function (BreadcrumbTrail $trail) {
     $trail->push("Wallet", route('wallet.index'));
 });
 
+Breadcrumbs::for('wallet.show', function (BreadcrumbTrail $trail,$t) {
+    $trail->parent('wallet.index');
+    $trail->push("Detail", route('wallet.show',$t));
+});
+
 Breadcrumbs::for('wallet.recharge', function (BreadcrumbTrail $trail) {
     $trail->parent('wallet.index');
     $trail->push("Recharge", route('wallet.recharge'));

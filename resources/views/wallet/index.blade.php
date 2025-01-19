@@ -85,13 +85,11 @@
                             name: 'amount',
                             title: 'Amount'
                         },
-
                         {
                             data: 'fee',
                             name: 'fee',
                             title: 'Fee'
                         },
-
                         {
                             data: 'tax',
                             name: 'tax',
@@ -110,8 +108,17 @@
                         {
                             data: 'status',
                             name: 'status',
-                            title: 'Status'
-                        }
+                            title: 'Status',
+                            orderable: false,
+                            searchable: false
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            title: 'Action',
+                            orderable: false,
+                            searchable: false
+                        },
                     ]
                 });
 

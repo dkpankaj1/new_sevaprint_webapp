@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -43,7 +44,7 @@ class ImageUploadHelper
             return $directory . '/' . $fileName;
 
         } catch (\Exception $e) {
-            \Log::error("Image upload failed: " . $e->getMessage());
+            Log::error("Image upload failed: " . $e->getMessage());
             return null;
         }
     }

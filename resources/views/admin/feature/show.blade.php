@@ -14,7 +14,7 @@
             <div class="card-body">
                 <!-- Thumbnail -->
                 <div class="text-center mb-4">
-                    <img src="{{ $feature->getFirstMediaUrl('feature', 'thumbnail') ?: asset('assets/images/service.png') }}"
+                    <img src="{{ $feature->icon }}"
                         alt="Service Thumbnail" class="img-thumbnail" style="max-width: 150px; height: auto;">
                 </div>
 

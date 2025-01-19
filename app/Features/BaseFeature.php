@@ -21,4 +21,21 @@ abstract class BaseFeature
         $feature = Feature::where('code', static::$code)->first();
         return $feature ? $feature->fee : 0.0;
     }
+    public static function getFeatureCommission(): float
+    {
+        $feature = Feature::where('code', static::$code)->first();
+
+        if (!$feature) {
+            return 0.0;
+        }
+        
+        return $feature->commission_type === 0
+            ? $feature->commission
+            : ($feature->fee / 100) * $feature->commission;
+    }
+    public static function getFeatureIcon(): string
+    {
+        $feature = Feature::where('code', static::$code)->first();
+        return $feature ? $feature->icon : "#";
+    }
 }

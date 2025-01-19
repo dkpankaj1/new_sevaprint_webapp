@@ -89,6 +89,7 @@ Route::group(['middleware' => LocaleMiddleware::class], function () {
 
         Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function () {
             Route::get('/', [WalletController::class, 'index'])->name('index');
+            Route::get('detail/{transaction}', [WalletController::class, 'show'])->name('show');
             Route::get('recharge', [WalletController::class, 'recharge'])->name('recharge');
             Route::post('recharge', [WalletController::class, 'rechargeProcess']);
         });

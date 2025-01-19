@@ -10,7 +10,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $features = Feature::where(['enable' => true])->get();
-        return view('dashboard', ['features' => $features]);
+        return view('dashboard');
     }
 }

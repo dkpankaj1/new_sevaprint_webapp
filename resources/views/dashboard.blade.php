@@ -39,18 +39,36 @@
 
     <div class="row gap-2">
 
-        @foreach ($features as $feature)
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="/mobile-recharge" class="text-decoration-none">
-                    <div class="card text-center border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <img src="{{$feature->getFirstMediaUrl('feature', 'thumbnail') ?: asset('assets/images/service.png') }}" style="max-width: 100px; height: auto;" alt="">
-                            <h5 class="mt-3">{{$feature->name}}</h5>
-                        </div>
-                    </div>
-                </a>
+        @featureMobileRechargeEnabled
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card text-center border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <img src="{{App\Features\MobileRechargeFeature::getFeatureIcon()}}" style="max-width: 100px; height: auto;" alt="">
+                    <h5 class="mt-3">Recharge</h5>
+
+                    <a href="{{ route('mobile-recharge.create', ['type' => 'mobile']) }}" class="btn btn-primary">Mobile</a>
+                    <a href="{{ route('mobile-recharge.create', ['type' => 'dth']) }}" class="btn btn-primary">DTH</a>
+                </div>
             </div>
-        @endforeach
+        </div>
+        @endfeatureMobileRechargeEnabled
+
+        @nsdlPanFeatureEnabled
+
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card text-center border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <img src="{{App\Features\NsdlPanFeature::getFeatureIcon()}}" style="max-width: 100px; height: auto;" alt="">
+                    <h5 class="mt-3">NSDL PAN</h5>
+
+                    <a href="{{ route('nsdl.pan-card.create') }}" class="btn btn-primary">Apply New</a>
+                </div>
+            </div>
+        </div>
+    @endnsdlPanFeatureEnabled
+
+
+
     </div>
 
 

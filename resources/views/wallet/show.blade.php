@@ -1,10 +1,10 @@
-<x-admin-auth-layout>
-    @section('title', 'Transaction | Detail')
-    @section('page-title', 'Transaction | Detail')
+<x-user-auth-layout>
+    @section('title', __('Wallet'))
     @section('breadcrumb')
-        {{ Breadcrumbs::render('admin.transaction.show', $transaction) }}
+        {{ Breadcrumbs::render('wallet.show',$transaction) }}
     @endsection
 
+    <!-- Wallet Overview -->
     <div class="card border-secondary">
         <div class="card-body">
             <div class="row mb-3">
@@ -71,4 +71,4 @@
     </div>
 
 
-</x-admin-auth-layout>
+</x-user-auth-layout>

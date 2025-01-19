@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Enums\MobileRechargeEnums;
 use App\Enums\TransactionEnum;
+use App\Features\MobileRechargeFeature;
 use App\Helpers\RechargeHelper;
 use App\Helpers\TransactionHelper;
 use App\Models\GeneralSetting;
@@ -131,6 +132,8 @@ class MobileRechargeService implements MobileRechargeServiceInterface
             $data['circle']
         );
 
+        $finalCharges = MobileRechargeFeature::finalCharges($data['amount']);
+
         $transactionData = [
             "user_id" => $user->id,
             "transaction_type" => TransactionEnum::TYPE_INTERNAL,
@@ -138,10 +141,10 @@ class MobileRechargeService implements MobileRechargeServiceInterface
             "vendor" => TransactionEnum::VENDOR_INTERNAL,
             "transaction_id" => TransactionHelper::generateTransactionId(),
             "opening_balance" => $user->wallet,
-            "amount" => $data['amount'],
+            "amount" => $finalCharges,
             "fee" => 0,
             "tax" => 0,
-            "closing_balance" => $user->wallet - $data['amount'],
+            "closing_balance" => $user->wallet - $finalCharges,
             "currency_id" => $defaultCurrency,
             "payment_method" => TransactionEnum::METHOD_WALLET,
             "metadata" => [
@@ -163,8 +166,8 @@ class MobileRechargeService implements MobileRechargeServiceInterface
 
         $responseData = $response['data'];
         if ($responseData['ERROR'] == 0 && $responseData['STATUS'] == 1) {
-            $this->transactionRepository->create(array_merge($transactionData, ['status' => TransactionEnum::STATUS_COMPLETE]));
-            $this->userRepository->decrementWallet($user->id, $data['amount']);
+            $this->transactionRepository->create(array_merge($transactionData, ['status' => TransactionEnum::STATUS_COMPLETE]));        
+            $this->userRepository->decrementWallet($user->id, $finalCharges);
             $mobileRechargeResource->update([
                 'status' => MobileRechargeEnums::STATUS_COMPLETE,
                 'recharged_at' => now(),

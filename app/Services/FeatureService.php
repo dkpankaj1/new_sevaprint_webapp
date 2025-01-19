@@ -1,19 +1,25 @@
 <?php
+
 namespace App\Services;
 
+use App\Helpers\ImageUploadHelper;
 use App\Models\Feature;
+use App\Models\GeneralSetting;
 use App\Repositories\Contracts\FeatureRepositoryInterface;
 use App\Services\Contracts\FeatureServiceInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
 use Yajra\DataTables\Facades\DataTables;
 
 class FeatureService implements FeatureServiceInterface
 {
     protected $featureRepository;
+    protected $generalSetting;
 
     public function __construct(FeatureRepositoryInterface $featureRepository)
     {
         $this->featureRepository = $featureRepository;
+        $this->generalSetting = GeneralSetting::first();
     }
     public function getDataTableData(): JsonResponse
     {
@@ -27,12 +33,26 @@ class FeatureService implements FeatureServiceInterface
                 ]);
             })
 
+            ->addColumn('fee', function ($feature) {
+                return "{$this->generalSetting->currency->symbol} {$feature->fee}";
+            })
+
+            ->addColumn('commission', function ($feature) {
+                return $feature->commission_type == 0 
+                ? "{$this->generalSetting->currency->symbol} {$feature->commission}" 
+                : "{$feature->commission} (%)";
+            })
+
+            ->addColumn('commission_type', function ($feature) {
+                return $feature->commission_type == 0 ? "Fixed" : 'Percent';
+            })
+
             ->addColumn('updated_at', function ($feature) {
                 return $feature->updated_at ? $feature->updated_at->diffForHumans() : 'N/A';
             })
 
             ->addColumn('thumbnail', function ($feature) {
-                $thumbnailUrl = $feature->getFirstMediaUrl('feature', 'thumbnail') ?: asset('assets/images/service.png');
+                $thumbnailUrl = $feature->icon;
                 return view('components.user-avatar', ['src' => $thumbnailUrl]);
             })
 
@@ -59,7 +79,19 @@ class FeatureService implements FeatureServiceInterface
             "name" => $data['name'],
             "description" => $data['description'],
             "fee" => $data['fee'],
+            "commission" => $data['commission'],
+            "commission_type" =>$data['commission_type'],
             "enable" => $data['enable'],
+        ]);
+    }
+
+    public function updateFeatureIcon(int $id, UploadedFile $path) :Feature
+    {
+        $feature =$this->featureRepository->find($id);
+        ImageUploadHelper::deleteFile($feature->getRawOriginal('icon'));
+        $path= ImageUploadHelper::uploadImage($path,'upload/feature',200,113);
+        return $this->featureRepository->update($id, [
+            "icon" => $path
         ]);
     }
 }

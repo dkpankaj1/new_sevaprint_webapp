@@ -3,27 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Image\Enums\Fit;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Feature extends Model implements HasMedia
+
+class Feature extends Model 
 {
-    use InteractsWithMedia;
+
     protected $fillable = [
         "code",
         "name",
+        "icon",
         "description",
         "fee",
+        "commission",
+        "commission_type",
         "enable",
     ];
 
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('thumbnail')
-            ->fit(Fit::Contain, 200, 113)
-            ->nonQueued();
+    public function getIconAttribute($value){
+        return $value ? asset($value) : "https://placehold.co/200x113";
     }
 }

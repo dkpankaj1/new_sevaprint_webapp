@@ -44,6 +44,30 @@
                                 @enderror
                             </div>
 
+                            <!-- Service commission Input -->
+                            <div class="mb-3">
+                                <label for="commission" class="form-label">Commission
+                                    ({{ $generalSetting->currency->symbol }})</label>
+                                <input type="number" class="form-control" name="commission"
+                                    value="{{ old('fee', $feature->commission) }}" placeholder="Enter Commission">
+                                @error('commission')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- Service commission type Input -->
+                            <div class="mb-3">
+                                <label for="commission_type" class="form-label">Commission Type</label>
+                                <select name="commission_type" class="form-control">
+                                    <option value="">---select---</option>
+                                    <option value="0" @if (old('commission_type', $feature->commission_type) === 0) selected @endif>Fixed</option>
+                                    <option value="1" @if (old('commission_type', $feature->commission_type) === 1) selected @endif>Percent(%)</option>
+                                </select>
+                                @error('commission_type')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <!-- Service Enable (Yes/No) Dropdown -->
                             <div class="mb-3">
                                 <label for="enable" class="form-label">Enable</label>
@@ -62,7 +86,7 @@
                             <!-- Service Thumbnail Section -->
                             <div class="mb-3 text-center">
                                 <div class="border text-center">
-                                    <img src="{{ $feature->getFirstMediaUrl('feature') ?: asset('assets/images/service.png') }}"
+                                    <img src="{{ $feature->icon }}"
                                         alt="{{ $feature->name }}" class="img-fluid p-1 " style="height: 113px">
                                 </div>
                                 <input type="file" class="form-control mt-1" name="thumbnail">
