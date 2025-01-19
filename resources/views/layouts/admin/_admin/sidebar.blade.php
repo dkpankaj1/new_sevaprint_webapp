@@ -37,6 +37,13 @@
         </a>
     </li>
 
+    <li>
+        <a href="{{ route('admin.pan-card.index') }}">
+            <i data-feather="check-square"></i>
+            <span>PAN Application</span>
+        </a>
+    </li>
+
     <li class="menu-title">Users</li>
 
     <li>

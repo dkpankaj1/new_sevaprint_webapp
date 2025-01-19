@@ -1,5 +1,7 @@
 # Custom Dictionary Words
 Airtel
+apexcharts
+Apexcharts
 apimember
 Apipassword
 bullist
@@ -27,7 +29,9 @@ numlist
 operatorcode
 otps
 outdent
+pancard
 phonepe
+progressbar
 Rahul
 razorpey
 RDATA
@@ -42,3 +46,4 @@ uniqid
 upiuid
 visualblocks
 wordcount
+xaxis

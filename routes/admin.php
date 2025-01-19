@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\OurServiceController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ServerManagerController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\PanCardController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TextSliderController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -36,6 +37,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('balance-transfer', BalanceTransferController::class);
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::resource('pan-card', PanCardController::class)->only(['index','show']);
 
         Route::resource('users', UserController::class);
 

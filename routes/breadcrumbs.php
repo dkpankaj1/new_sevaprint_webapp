@@ -111,6 +111,15 @@ Breadcrumbs::for('admin.balance-transfer.edit', function (BreadcrumbTrail $trail
 });
 
 
+Breadcrumbs::for('admin.pan-card.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pancard', route('admin.pan-card.index'));
+});
+Breadcrumbs::for('admin.pan-card.show', function (BreadcrumbTrail $trail,$panCard) {
+    $trail->parent('admin.pan-card.index');
+    $trail->push('Pancard', route('admin.pan-card.show',$panCard));
+});
+
 
 Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

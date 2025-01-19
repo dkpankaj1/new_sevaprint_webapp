@@ -40,7 +40,7 @@
     <div class="row gap-2">
 
         @featureMobileRechargeEnabled
-        <div class="col-6 col-md-4 col-lg-3">
+        <div class="col-12 col-md-4 col-lg-3">
             <div class="card text-center border-0 shadow-sm h-100">
                 <div class="card-body">
                     <img src="{{App\Features\MobileRechargeFeature::getFeatureIcon()}}" style="max-width: 100px; height: auto;" alt="">
@@ -55,7 +55,7 @@
 
         @nsdlPanFeatureEnabled
 
-        <div class="col-6 col-md-4 col-lg-3">
+        <div class="col-12 col-md-4 col-lg-3">
             <div class="card text-center border-0 shadow-sm h-100">
                 <div class="card-body">
                     <img src="{{App\Features\NsdlPanFeature::getFeatureIcon()}}" style="max-width: 100px; height: auto;" alt="">

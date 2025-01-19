@@ -13,8 +13,9 @@
             <div class="card-body">
                 <div class="align-items-center">
                     <div class="d-flex align-items-center">
-                        <img src="{{ auth()->guard('admin')->user()->avatar }}" class="rounded-2 avatar-xxl" alt="image profile">
-    
+                        <img src="{{ auth()->guard('admin')->user()->avatar }}" class="rounded-2 avatar-xxl"
+                            alt="image profile">
+
                         <div class="overflow-hidden ms-4">
                             <h4 class="m-0 text-dark fs-20">{{ auth()->guard('admin')->user()->name }}</h4>
                             <p class="my-1 text-muted fs-16">{{ auth()->guard('admin')->user()->email }}</p>
@@ -29,7 +30,7 @@
         </div>
 
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -137,10 +138,74 @@
                     <!--end card body-->
                 </div><!-- end card-->
             </div> <!-- end col-->
-        </div>
+        </div> --}}
         <!-- end row-->
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Transaction Chart</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="basic_line_chart" class="apex-charts"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div> <!-- container -->
 
+    @section('page-js')
+    <!-- Apexcharts JS -->
+    <script src="{{ asset('backend/libs/apexcharts/apexcharts.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var options = {
+                series: [
+                    { name: "Debit", data: @json($debit) },
+                    { name: "Credit", data: @json($credit) },
+                ],
+                chart: {
+                    height: 380,
+                    type: "line",
+                    zoom: { enabled: false },
+                    toolbar: { show: false },
+                },
+                markers: { size: 4 },
+                dataLabels: { enabled: false },
+                stroke: { curve: "straight" },
+                colors: ["#4af55b","#4a98f5"],
+                title: {
+                    text: "Transaction",
+                    align: "left",
+                    style: { fontWeight: 600 },
+                },
+                grid: { row: { colors: ["#f3f3f3", "transparent"], opacity: 0.5 } },
+                xaxis: {
+                    categories: @json($dates),
+                },
+                responsive: [
+                    {
+                        breakpoint: 600,
+                        options: {
+                            chart: { toolbar: { show: false } },
+                            legend: { show: false },
+                        },
+                    },
+                ],
+            };
+
+            var chart = new ApexCharts(
+                document.querySelector("#basic_line_chart"),
+                options
+            );
+
+            chart.render();
+        });
+    </script>
+
+    @endsection
 
 </x-admin-auth-layout>
