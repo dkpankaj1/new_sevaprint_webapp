@@ -96,6 +96,7 @@ class ProcessPanData extends Command
                         "processed_at" => now(),
                         'status' => TransactionEnum::STATUS_COMPLETE
                     ];
+                    Log::info(json_encode(['transaction' => $transactionData]));
                     Transaction::create($transactionData);
                     $panCard->user()->increment('wallet', $panCard->transaction_fee);
                 }

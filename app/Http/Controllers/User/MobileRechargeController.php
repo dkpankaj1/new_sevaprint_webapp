@@ -74,6 +74,7 @@ class MobileRechargeController extends Controller
     }
     public function show(MobileRecharge $mobileRecharge)
     {
+        Gate::authorize('view', $mobileRecharge);
         return view('mobile-recharge.show', ['mobileRecharge' => $mobileRecharge]);
     }
 }
